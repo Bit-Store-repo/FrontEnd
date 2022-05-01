@@ -16,6 +16,9 @@ import 'package:bit_store/account_pages/changeMail.dart';
 
 // importing all the home screens
 import 'package:bit_store/home_screens/homeScreen.dart';
+import 'package:bit_store/home_screens/widgets/passwordPage.dart';
+import 'package:bit_store/home_screens/widgets/folderPage.dart';
+import 'package:bit_store/home_screens/widgets/newEditPassword.dart';
 
 void main() => runApp(MaterialApp(
   initialRoute: 'home',
@@ -35,6 +38,7 @@ void main() => runApp(MaterialApp(
     'changeMail' : (context) => changeMail(),
 
   //  all the main_application pages go here
-    'home' : (context) => homeScreen()
+    'home' : (context) => homeScreen(),
+    'newPassword': (context) => newEditPassword(passwordData: {}, type: 'New',),
   },
 ));

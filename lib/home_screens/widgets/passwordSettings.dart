@@ -1,7 +1,9 @@
+import 'package:bit_store/home_screens/widgets/newEditPassword.dart';
 import 'package:flutter/material.dart';
 
 class passwordSettings extends StatefulWidget {
-  const passwordSettings({Key? key}) : super(key: key);
+  const passwordSettings({Key? key, required this.passwordData}) : super(key: key);
+  final Map passwordData;
 
   @override
   _passwordSettingsState createState() => _passwordSettingsState();
@@ -35,6 +37,7 @@ class _passwordSettingsState extends State<passwordSettings> {
                 ),),
                 SizedBox(height: 40,),
 
+                //  remove from fav
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -65,34 +68,44 @@ class _passwordSettingsState extends State<passwordSettings> {
                   ],
                 ),
                 SizedBox(height: 25,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(flex: 1, child: ImageIcon(AssetImage("assets/icons/editBig.png"), color: Color.fromRGBO(77, 77, 77, 1),)),
-                    SizedBox(width: 20,),
-                    Expanded(
-                      flex: 8,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Edit Password Info', style: TextStyle(
-                            fontFamily: 'gilroy',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: Color.fromRGBO(27, 27, 27, 1),
-                          ),),
-                          SizedBox(height: 5,),
-                          Text('Change password or delete', style: TextStyle(
-                            fontFamily: 'gilroy',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 13,
-                            color: Color.fromRGBO(137, 137, 137, 1),
-                          ),),
-                        ],
+
+                //  edit password info
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => newEditPassword(passwordData: widget.passwordData, type: 'Edit',)),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(flex: 1, child: ImageIcon(AssetImage("assets/icons/editBig.png"), color: Color.fromRGBO(77, 77, 77, 1),)),
+                      SizedBox(width: 20,),
+                      Expanded(
+                        flex: 8,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Edit Password Info', style: TextStyle(
+                              fontFamily: 'gilroy',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Color.fromRGBO(27, 27, 27, 1),
+                            ),),
+                            SizedBox(height: 5,),
+                            Text('Change password or delete', style: TextStyle(
+                              fontFamily: 'gilroy',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 13,
+                              color: Color.fromRGBO(137, 137, 137, 1),
+                            ),),
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(flex: 1, child: ImageIcon(AssetImage("assets/icons/forward.png"), color: Color.fromRGBO(77, 77, 77, 1),)),
-                  ],
+                      Expanded(flex: 1, child: ImageIcon(AssetImage("assets/icons/forward.png"), color: Color.fromRGBO(77, 77, 77, 1),)),
+                    ],
+                  ),
                 ),
               ],
             )

@@ -110,7 +110,6 @@ class _account_landingState extends State<account_landing> {
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                           color: Color.fromRGBO(104, 104, 104, 1),
-
                         ),),
                         if(status == 'verified')...[
                           ImageIcon(AssetImage("assets/icons/verified.png"), color: Color.fromRGBO(114, 207, 141, 1),),
