@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import 'package:uuid/uuid.dart';
-
-class newEditPassword extends StatefulWidget {
-  const newEditPassword({Key? key, required this.passwordData, required this.type}) : super(key: key);
-  final Map passwordData;
+class newEditFolder extends StatefulWidget {
+  const newEditFolder({Key? key, required this.folderData, required this.type}) : super(key: key);
+  final Map folderData;
   final String type;
 
   @override
-  _newEditPasswordState createState() => _newEditPasswordState();
+  _newEditFolderState createState() => _newEditFolderState();
 }
 
-class _newEditPasswordState extends State<newEditPassword> {
+class _newEditFolderState extends State<newEditFolder> {
 
   bool passwordVisible = false;
   String dropdownValue = 'None';
 
   TextEditingController passwordController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
 
-    Map passwordData = widget.passwordData;
+    Map folderData = widget.folderData;
 
     // Map passwordData = widget.passwordData;
     String type = widget.type;
 
     //  replace the list with stored icons
     List icons = <String>['None','One', 'Two', 'Free', 'Four', 'google'];
+
 
     return Scaffold(
       appBar: PreferredSize(
@@ -56,7 +55,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                     ),
                   ),
 
-                  Text('${type} Password',style: TextStyle(
+                  Text('${type} Folder',style: TextStyle(
                     fontFamily: 'gilroy',
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -134,7 +133,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              label: Text('Enter name to identify',style: TextStyle(
+                              label: Text('Enter folder name',style: TextStyle(
                                   fontFamily: 'gilroy',
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
@@ -173,7 +172,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              label: Text('${passwordData['name']}',style: TextStyle(
+                              label: Text('${folderData['name']}',style: TextStyle(
                                   fontFamily: 'gilroy',
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
@@ -189,7 +188,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                     if(type == 'New')...[
                       SizedBox(height: 8,),
                       Container(
-                        height: 130,
+                          height: 130,
                           width: double.infinity,
                           decoration: BoxDecoration(
                             boxShadow: [
@@ -278,115 +277,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                       TextFormField(
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          label: Text('${passwordData['about']}',style: TextStyle(
-                                              fontFamily: 'gilroy',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                              color: Color.fromRGBO(77, 77, 77, 1)
-                                          ),),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                      ),
-                    ],
-
-                    //  email
-                    if(type == 'New')...[
-                      SizedBox(height: 8,),
-                      Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(35, 35, 35, 0.8),
-                                offset: const Offset(
-                                  0,
-                                  4,
-                                ),
-                                blurRadius: 14,
-                                spreadRadius: -15,
-                              ),
-                            ],
-                            border: Border.all(
-                                color: Colors.white,
-                                width: 2
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TextFormField(
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          label: Text('Email (optional)',style: TextStyle(
-                                              fontFamily: 'gilroy',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                              color: Color.fromRGBO(77, 77, 77, 1)
-                                          ),),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                      ),
-                    ],
-                    if(type == 'Edit')...[
-                      SizedBox(height: 8,),
-                      Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(35, 35, 35, 0.8),
-                                offset: const Offset(
-                                  0,
-                                  4,
-                                ),
-                                blurRadius: 14,
-                                spreadRadius: -15,
-                              ),
-                            ],
-                            border: Border.all(
-                                color: Colors.white,
-                                width: 2
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TextFormField(
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          label: Text('${passwordData['email']}',style: TextStyle(
+                                          label: Text('${folderData['about']}',style: TextStyle(
                                               fontFamily: 'gilroy',
                                               fontWeight: FontWeight.w400,
                                               fontSize: 16,
@@ -520,7 +411,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       DropdownButton<String>(
-                                        value: passwordData['icon'],
+                                        value: folderData['icon'],
                                         icon: ImageIcon(AssetImage("assets/icons/down.png"), color: Color.fromRGBO(27, 27, 27, 1),),
                                         elevation: 16,
                                         style: const TextStyle(color: Color.fromRGBO(27, 27, 27, 1)),
@@ -544,101 +435,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                           )
                       ),
                     ],
-
                     SizedBox(height: 25,),
-
-                    Text('Password fields',style: TextStyle(
-                      fontFamily: 'gilroy',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: Color.fromRGBO(77, 77, 77, 1),
-                    ),),
-
-                    SizedBox(height: 8,),
-                    Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(35, 35, 35, 0.8),
-                              offset: const Offset(
-                                0,
-                                4,
-                              ),
-                              blurRadius: 14,
-                              spreadRadius: -15,
-                            ),
-                          ],
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 2
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 8,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    if(type == 'New')...[TextFormField(
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        label: Text('Enter Password',style: TextStyle(
-                                            fontFamily: 'gilroy',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16,
-                                            color: Color.fromRGBO(77, 77, 77, 1)
-                                        ),),
-                                      ),
-                                    ),],
-                                    if(type == 'Edit')...[TextFormField(
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        label: Text('${passwordData['password']}',style: TextStyle(
-                                            fontFamily: 'gilroy',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16,
-                                            color: Color.fromRGBO(77, 77, 77, 1)
-                                        ),),
-                                      ),
-                                    ),],
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width:20,),
-
-                              InkWell(onTap: (){
-                                var uuid = Uuid();
-                                var uid = uuid.v4();
-                                setState(() {
-
-                                });
-                              },
-                                  child: ImageIcon(AssetImage("assets/icons/gear.png"), color: Color.fromRGBO(125, 125, 125, 1),)),
-
-
-                            ],
-                          ),
-                        )
-                    ),
-                    SizedBox(height: 8,),
-                    Center(
-                      child: Text('Click the gear icon to generate random password',style: TextStyle(
-                        fontFamily: 'gilroy',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 13,
-                        color: Color.fromRGBO(77, 77, 77, 1),
-                      ),),
-                    ),
-
-                    SizedBox(height: 20,),
-
                     InkWell(
                       onTap: () {
 

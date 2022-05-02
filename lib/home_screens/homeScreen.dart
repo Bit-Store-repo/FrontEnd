@@ -8,6 +8,7 @@ import 'package:bit_store/account_pages/account_landing.dart';
 //  importing the builder widgets
 import 'package:bit_store/home_screens/widgets/passwords.dart';
 import 'package:bit_store/home_screens/widgets/folders.dart';
+import 'package:bit_store/home_screens/widgets/new.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({Key? key}) : super(key: key);
@@ -160,47 +161,78 @@ class _homeScreenState extends State<homeScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset('assets/logo.png'),
-                        InkWell(
-                          onTap: () => showMaterialModalBottomSheet(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-                            ),
-                            context: context,
-                            builder: (context) => Stack(
-                              children: <Widget>[
-                                account_landing()
-                              ],
-                            ),
-                          ),
-                          child: Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color.fromRGBO(35, 35, 35, 0.4),
-                                  offset: const Offset(
-                                    0,
-                                    4,
-                                  ),
-                                  blurRadius: 34,
-                                  spreadRadius: 1,
-                                ),
-                              ],
-                              image: DecorationImage(
-                                  image: NetworkImage(imageUrl),
-                                  fit: BoxFit.cover
-                              ),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                  color: Colors.white,
-                                  width: 2
-                              ),
-                            ),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image.asset('assets/logo.png'),
+                          ],
                         ),
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => showMaterialModalBottomSheet(
+                                        shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                                  ),
+                                  context: context,
+                                  builder: (context) => Stack(
+                                    children: <Widget>[
+                                      addNew(),
+                                    ],
+                                  ),
+                                ),
+                              child: ImageIcon(AssetImage("assets/icons/add.png"),
+                                  color: Colors.white),
+                              style: ElevatedButton.styleFrom(
+                                  shape: CircleBorder(),
+                                  primary: Color.fromRGBO(22, 22, 22, 1), // <-- Button color
+                                  onPrimary: Color.fromRGBO(227, 255, 235, 1), // <-- Splash color
+                                  elevation: 8
+                              ),
+                            ),
+                            SizedBox(width: 10,),
+                            InkWell(
+                              onTap: () => showMaterialModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                                ),
+                                context: context,
+                                builder: (context) => Stack(
+                                  children: <Widget>[
+                                    account_landing()
+                                  ],
+                                ),
+                              ),
+                              child: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color.fromRGBO(35, 35, 35, 0.4),
+                                      offset: const Offset(
+                                        0,
+                                        4,
+                                      ),
+                                      blurRadius: 34,
+                                      spreadRadius: 1,
+                                    ),
+                                  ],
+                                  image: DecorationImage(
+                                      image: NetworkImage(imageUrl),
+                                      fit: BoxFit.cover
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: Colors.white,
+                                      width: 2
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                     SizedBox(height: 40,),

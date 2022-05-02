@@ -19,6 +19,7 @@ import 'package:bit_store/home_screens/homeScreen.dart';
 import 'package:bit_store/home_screens/widgets/passwordPage.dart';
 import 'package:bit_store/home_screens/widgets/folderPage.dart';
 import 'package:bit_store/home_screens/widgets/newEditPassword.dart';
+import 'package:bit_store/home_screens/widgets/newEditFolder.dart';
 
 void main() => runApp(MaterialApp(
   initialRoute: 'home',
@@ -40,5 +41,6 @@ void main() => runApp(MaterialApp(
   //  all the main_application pages go here
     'home' : (context) => homeScreen(),
     'newPassword': (context) => newEditPassword(passwordData: {}, type: 'New',),
+    'newFolder' : (context) => newEditFolder(folderData: {}, type: 'New'),
   },
 ));
