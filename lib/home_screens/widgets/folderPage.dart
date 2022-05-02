@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
+import 'package:bit_store/home_screens/widgets/folders.dart';
 //  importing the builder widgets
 import 'package:bit_store/home_screens/widgets/passwords.dart';
-import 'package:bit_store/home_screens/widgets/folders.dart';
+import 'package:flutter/material.dart';
 
 class folderPage extends StatefulWidget {
   const folderPage({Key? key, required this.folderData}) : super(key: key);
@@ -31,14 +29,14 @@ class _folderPageState extends State<folderPage> {
     List password = [];
     List folder = [];
 
-    for(int i =3; i < widget.folderData.length; i++){
-      if(widget.folderData[i].runtimeType == List<Object>){
+    for (int i = 3; i < widget.folderData.length; i++) {
+      if (widget.folderData[i].runtimeType == List<Object>) {
         folder.add(widget.folderData[i]);
-      }
-      else{
+      } else {
         password.add(widget.folderData[i]);
       }
-    };
+    }
+    ;
 
     return Scaffold(
       appBar: PreferredSize(
@@ -60,19 +58,21 @@ class _folderPageState extends State<folderPage> {
                         color: Color.fromRGBO(22, 22, 22, 1)),
                     style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
-                        primary: Color.fromRGBO(180, 248, 200, 1), // <-- Button color
-                        onPrimary: Color.fromRGBO(227, 255, 235, 1), // <-- Splash color
-                        elevation: 8
+                        primary: Color.fromRGBO(
+                            180, 248, 200, 1), // <-- Button color
+                        onPrimary: Color.fromRGBO(
+                            227, 255, 235, 1), // <-- Splash color
+                        elevation: 8),
+                  ),
+                  Text(
+                    '${passwordData[0]}',
+                    style: TextStyle(
+                      fontFamily: 'gilroy',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      color: Color.fromRGBO(77, 77, 77, 1),
                     ),
                   ),
-
-                  Text('${passwordData[0]}',style: TextStyle(
-                    fontFamily: 'gilroy',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                    color: Color.fromRGBO(77, 77, 77, 1),
-                  ),),
-
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -82,8 +82,7 @@ class _folderPageState extends State<folderPage> {
                     style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
                         primary: Color.fromRGBO(22, 22, 22, 1),
-                        elevation: 8
-                    ),
+                        elevation: 8),
                   ),
                 ],
               ),
@@ -107,14 +106,21 @@ class _folderPageState extends State<folderPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10,),
-                    Text('About',style: TextStyle(
-                      fontFamily: 'gilroy',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: Color.fromRGBO(77, 77, 77, 1),
-                    ),),
-                    SizedBox(height: 8,),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'About',
+                      style: TextStyle(
+                        fontFamily: 'gilroy',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: Color.fromRGBO(77, 77, 77, 1),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -129,56 +135,64 @@ class _folderPageState extends State<folderPage> {
                             spreadRadius: -15,
                           ),
                         ],
-                        border: Border.all(
-                            color: Colors.white,
-                            width: 2
-                        ),
+                        border: Border.all(color: Colors.white, width: 2),
                         borderRadius: BorderRadius.circular(10),
-
                         color: Colors.white,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(15),
-                        child: Text(passwordData[1],
+                        child: Text(
+                          passwordData[1],
                           style: TextStyle(
                             fontFamily: 'gilroy',
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
                             color: Color.fromRGBO(77, 77, 77, 1),
-                          ),),
+                          ),
+                        ),
                       ),
                     ),
-
-                    SizedBox(height: 25,),
-
-                    Text('Passwords',style: TextStyle(
-                      fontFamily: 'gilroy',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: Color.fromRGBO(77, 77, 77, 1),
-                    ),),
-
-                    SizedBox(height: 8,),
-
-                    passwords(passwordData : password,),
-
-                    SizedBox(height: 25,),
-
-                    Text('Folders',style: TextStyle(
-                      fontFamily: 'gilroy',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: Color.fromRGBO(77, 77, 77, 1),
-                    ),),
-
-                    SizedBox(height: 8,),
-
-                    folders(folderData : folder,),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      'Passwords',
+                      style: TextStyle(
+                        fontFamily: 'gilroy',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: Color.fromRGBO(77, 77, 77, 1),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    passwords(
+                      passwordData: password,
+                      favourite: false,
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Text(
+                      'Folders',
+                      style: TextStyle(
+                        fontFamily: 'gilroy',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: Color.fromRGBO(77, 77, 77, 1),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    folders(
+                      folderData: folder,
+                    ),
                   ],
                 ),
               ),
-            )
-        ),
+            )),
       ),
     );
   }

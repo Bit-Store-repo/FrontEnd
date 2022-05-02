@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class newEditFolder extends StatefulWidget {
-  const newEditFolder({Key? key, required this.folderData, required this.type}) : super(key: key);
+  const newEditFolder({Key? key, required this.folderData, required this.type})
+      : super(key: key);
   final Map folderData;
   final String type;
 
@@ -10,24 +11,29 @@ class newEditFolder extends StatefulWidget {
 }
 
 class _newEditFolderState extends State<newEditFolder> {
-
   bool passwordVisible = false;
   String dropdownValue = 'None';
 
   TextEditingController passwordController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
-
     Map folderData = widget.folderData;
 
     // Map passwordData = widget.passwordData;
     String type = widget.type;
 
     //  replace the list with stored icons
-    List icons = <String>['None','One', 'Two', 'Free', 'Four', 'google'];
-
+    List icons = <String>[
+      'amazon',
+      'google',
+      'card',
+      'None',
+      'One',
+      'Two',
+      'Free',
+      'Four',
+    ];
 
     return Scaffold(
       appBar: PreferredSize(
@@ -49,29 +55,29 @@ class _newEditFolderState extends State<newEditFolder> {
                         color: Color.fromRGBO(22, 22, 22, 1)),
                     style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
-                        primary: Color.fromRGBO(180, 248, 200, 1), // <-- Button color
-                        onPrimary: Color.fromRGBO(227, 255, 235, 1), // <-- Splash color
-                        elevation: 8
+                        primary: Color.fromRGBO(
+                            180, 248, 200, 1), // <-- Button color
+                        onPrimary: Color.fromRGBO(
+                            227, 255, 235, 1), // <-- Splash color
+                        elevation: 8),
+                  ),
+                  Text(
+                    '${type} Folder',
+                    style: TextStyle(
+                      fontFamily: 'gilroy',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      color: Color.fromRGBO(77, 77, 77, 1),
                     ),
                   ),
-
-                  Text('${type} Folder',style: TextStyle(
-                    fontFamily: 'gilroy',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                    color: Color.fromRGBO(77, 77, 77, 1),
-                  ),),
-
                   ElevatedButton(
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                     child: ImageIcon(AssetImage("assets/icons/edit.png"),
                         color: Colors.white),
                     style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
                         primary: Color.fromRGBO(22, 22, 22, 0),
-                        elevation: 0
-                    ),
+                        elevation: 0),
                   ),
                 ],
               ),
@@ -95,17 +101,24 @@ class _newEditFolderState extends State<newEditFolder> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10,),
-                    Text('Meta Data',style: TextStyle(
-                      fontFamily: 'gilroy',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: Color.fromRGBO(77, 77, 77, 1),
-                    ),),
-                    SizedBox(height: 8,),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Meta Data',
+                      style: TextStyle(
+                        fontFamily: 'gilroy',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: Color.fromRGBO(77, 77, 77, 1),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
 
                     //  Name of password
-                    if(type == 'New')...[
+                    if (type == 'New') ...[
                       Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -120,12 +133,8 @@ class _newEditFolderState extends State<newEditFolder> {
                               spreadRadius: -15,
                             ),
                           ],
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 2
-                          ),
+                          border: Border.all(color: Colors.white, width: 2),
                           borderRadius: BorderRadius.circular(10),
-
                           color: Colors.white,
                         ),
                         child: Padding(
@@ -133,18 +142,20 @@ class _newEditFolderState extends State<newEditFolder> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              label: Text('Enter folder name',style: TextStyle(
-                                  fontFamily: 'gilroy',
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(77, 77, 77, 1)
-                              ),),
+                              label: Text(
+                                'Enter folder name',
+                                style: TextStyle(
+                                    fontFamily: 'gilroy',
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(77, 77, 77, 1)),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ],
-                    if(type == 'Edit')...[
+                    if (type == 'Edit') ...[
                       Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -159,12 +170,8 @@ class _newEditFolderState extends State<newEditFolder> {
                               spreadRadius: -15,
                             ),
                           ],
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 2
-                          ),
+                          border: Border.all(color: Colors.white, width: 2),
                           borderRadius: BorderRadius.circular(10),
-
                           color: Colors.white,
                         ),
                         child: Padding(
@@ -172,12 +179,14 @@ class _newEditFolderState extends State<newEditFolder> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              label: Text('${folderData['name']}',style: TextStyle(
-                                  fontFamily: 'gilroy',
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(77, 77, 77, 1)
-                              ),),
+                              label: Text(
+                                '${folderData['name']}',
+                                style: TextStyle(
+                                    fontFamily: 'gilroy',
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(77, 77, 77, 1)),
+                              ),
                             ),
                           ),
                         ),
@@ -185,8 +194,10 @@ class _newEditFolderState extends State<newEditFolder> {
                     ],
 
                     //  Additional Info
-                    if(type == 'New')...[
-                      SizedBox(height: 8,),
+                    if (type == 'New') ...[
+                      SizedBox(
+                        height: 8,
+                      ),
                       Container(
                           height: 130,
                           width: double.infinity,
@@ -202,12 +213,8 @@ class _newEditFolderState extends State<newEditFolder> {
                                 spreadRadius: -15,
                               ),
                             ],
-                            border: Border.all(
-                                color: Colors.white,
-                                width: 2
-                            ),
+                            border: Border.all(color: Colors.white, width: 2),
                             borderRadius: BorderRadius.circular(10),
-
                             color: Colors.white,
                           ),
                           child: Padding(
@@ -217,18 +224,22 @@ class _newEditFolderState extends State<newEditFolder> {
                                 Expanded(
                                   flex: 8,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       TextFormField(
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          label: Text('Addtl. info to help you remember\n(optional)',style: TextStyle(
-                                              fontFamily: 'gilroy',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                              color: Color.fromRGBO(77, 77, 77, 1)
-                                          ),),
+                                          label: Text(
+                                            'Addtl. info to help you remember\n(optional)',
+                                            style: TextStyle(
+                                                fontFamily: 'gilroy',
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 16,
+                                                color: Color.fromRGBO(
+                                                    77, 77, 77, 1)),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -236,11 +247,12 @@ class _newEditFolderState extends State<newEditFolder> {
                                 ),
                               ],
                             ),
-                          )
-                      ),
+                          )),
                     ],
-                    if(type == 'Edit')...[
-                      SizedBox(height: 8,),
+                    if (type == 'Edit') ...[
+                      SizedBox(
+                        height: 8,
+                      ),
                       Container(
                           height: 130,
                           width: double.infinity,
@@ -256,12 +268,8 @@ class _newEditFolderState extends State<newEditFolder> {
                                 spreadRadius: -15,
                               ),
                             ],
-                            border: Border.all(
-                                color: Colors.white,
-                                width: 2
-                            ),
+                            border: Border.all(color: Colors.white, width: 2),
                             borderRadius: BorderRadius.circular(10),
-
                             color: Colors.white,
                           ),
                           child: Padding(
@@ -271,18 +279,22 @@ class _newEditFolderState extends State<newEditFolder> {
                                 Expanded(
                                   flex: 8,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       TextFormField(
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          label: Text('${folderData['about']}',style: TextStyle(
-                                              fontFamily: 'gilroy',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                              color: Color.fromRGBO(77, 77, 77, 1)
-                                          ),),
+                                          label: Text(
+                                            '${folderData['about']}',
+                                            style: TextStyle(
+                                                fontFamily: 'gilroy',
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 16,
+                                                color: Color.fromRGBO(
+                                                    77, 77, 77, 1)),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -290,13 +302,14 @@ class _newEditFolderState extends State<newEditFolder> {
                                 ),
                               ],
                             ),
-                          )
-                      ),
+                          )),
                     ],
 
                     //  Icon to display
-                    if(type == 'New')...[
-                      SizedBox(height: 8,),
+                    if (type == 'New') ...[
+                      SizedBox(
+                        height: 8,
+                      ),
                       Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -311,12 +324,8 @@ class _newEditFolderState extends State<newEditFolder> {
                                 spreadRadius: -15,
                               ),
                             ],
-                            border: Border.all(
-                                color: Colors.white,
-                                width: 2
-                            ),
+                            border: Border.all(color: Colors.white, width: 2),
                             borderRadius: BorderRadius.circular(10),
-
                             color: Colors.white,
                           ),
                           child: Padding(
@@ -326,31 +335,40 @@ class _newEditFolderState extends State<newEditFolder> {
                               children: [
                                 Expanded(
                                   flex: 8,
-                                  child: Text('Select Icon to display', style: TextStyle(
-                                    fontFamily: 'gilroy',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(27, 27, 27, 1),
-                                  ),
+                                  child: Text(
+                                    'Select Icon to display',
+                                    style: TextStyle(
+                                      fontFamily: 'gilroy',
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(27, 27, 27, 1),
+                                    ),
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 2,
+                                  flex: 3,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       DropdownButton<String>(
                                         value: dropdownValue,
-                                        icon: ImageIcon(AssetImage("assets/icons/down.png"), color: Color.fromRGBO(27, 27, 27, 1),),
+                                        icon: ImageIcon(
+                                          AssetImage("assets/icons/down.png"),
+                                          color: Color.fromRGBO(27, 27, 27, 1),
+                                        ),
                                         elevation: 16,
-                                        style: const TextStyle(color: Color.fromRGBO(27, 27, 27, 1)),
+                                        style: const TextStyle(
+                                            color:
+                                                Color.fromRGBO(27, 27, 27, 1)),
                                         onChanged: (dynamic? newValue) {
                                           setState(() {
                                             dropdownValue = newValue;
                                           });
                                         },
-                                        items: icons.map<DropdownMenuItem<String>>((dynamic value) {
+                                        items: icons
+                                            .map<DropdownMenuItem<String>>(
+                                                (dynamic value) {
                                           return DropdownMenuItem<String>(
                                             value: value,
                                             child: Text(value),
@@ -362,11 +380,12 @@ class _newEditFolderState extends State<newEditFolder> {
                                 ),
                               ],
                             ),
-                          )
-                      ),
+                          )),
                     ],
-                    if(type == 'Edit')...[
-                      SizedBox(height: 8,),
+                    if (type == 'Edit') ...[
+                      SizedBox(
+                        height: 8,
+                      ),
                       Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -381,12 +400,8 @@ class _newEditFolderState extends State<newEditFolder> {
                                 spreadRadius: -15,
                               ),
                             ],
-                            border: Border.all(
-                                color: Colors.white,
-                                width: 2
-                            ),
+                            border: Border.all(color: Colors.white, width: 2),
                             borderRadius: BorderRadius.circular(10),
-
                             color: Colors.white,
                           ),
                           child: Padding(
@@ -396,31 +411,40 @@ class _newEditFolderState extends State<newEditFolder> {
                               children: [
                                 Expanded(
                                   flex: 8,
-                                  child: Text('Select Icon to display', style: TextStyle(
-                                    fontFamily: 'gilroy',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(27, 27, 27, 1),
-                                  ),
+                                  child: Text(
+                                    'Select Icon to display',
+                                    style: TextStyle(
+                                      fontFamily: 'gilroy',
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(27, 27, 27, 1),
+                                    ),
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 2,
+                                  flex: 3,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       DropdownButton<String>(
                                         value: folderData['icon'],
-                                        icon: ImageIcon(AssetImage("assets/icons/down.png"), color: Color.fromRGBO(27, 27, 27, 1),),
+                                        icon: ImageIcon(
+                                          AssetImage("assets/icons/down.png"),
+                                          color: Color.fromRGBO(27, 27, 27, 1),
+                                        ),
                                         elevation: 16,
-                                        style: const TextStyle(color: Color.fromRGBO(27, 27, 27, 1)),
+                                        style: const TextStyle(
+                                            color:
+                                                Color.fromRGBO(27, 27, 27, 1)),
                                         onChanged: (dynamic? newValue) {
                                           setState(() {
                                             dropdownValue = newValue;
                                           });
                                         },
-                                        items: icons.map<DropdownMenuItem<String>>((dynamic value) {
+                                        items: icons
+                                            .map<DropdownMenuItem<String>>(
+                                                (dynamic value) {
                                           return DropdownMenuItem<String>(
                                             value: value,
                                             child: Text(value),
@@ -432,23 +456,18 @@ class _newEditFolderState extends State<newEditFolder> {
                                 ),
                               ],
                             ),
-                          )
-                      ),
+                          )),
                     ],
-                    SizedBox(height: 25,),
+                    SizedBox(
+                      height: 25,
+                    ),
                     InkWell(
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 2
-                          ),
+                          border: Border.all(color: Colors.white, width: 2),
                           borderRadius: BorderRadius.circular(20),
-
                           gradient: LinearGradient(
                             colors: [
                               Color.fromRGBO(180, 231, 229, 1),
@@ -461,12 +480,15 @@ class _newEditFolderState extends State<newEditFolder> {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(20.0, 15, 20, 15),
                           child: Center(
-                            child: Text('Save', style: TextStyle(
-                              fontFamily: 'gilroy',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                              color: Color.fromRGBO(22, 22, 22, 1),
-                            ),),
+                            child: Text(
+                              'Save',
+                              style: TextStyle(
+                                fontFamily: 'gilroy',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 20,
+                                color: Color.fromRGBO(22, 22, 22, 1),
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -474,8 +496,7 @@ class _newEditFolderState extends State<newEditFolder> {
                   ],
                 ),
               ),
-            )
-        ),
+            )),
       ),
     );
   }
