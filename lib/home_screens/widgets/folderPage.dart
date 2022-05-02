@@ -1,7 +1,9 @@
 import 'package:bit_store/home_screens/widgets/folders.dart';
+import 'package:bit_store/home_screens/widgets/new.dart';
 //  importing the builder widgets
 import 'package:bit_store/home_screens/widgets/passwords.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class folderPage extends StatefulWidget {
   const folderPage({Key? key, required this.folderData}) : super(key: key);
@@ -74,14 +76,27 @@ class _folderPageState extends State<folderPage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: ImageIcon(AssetImage("assets/icons/edit.png"),
+                    onPressed: () => showMaterialModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20)),
+                      ),
+                      context: context,
+                      builder: (context) => Stack(
+                        children: <Widget>[
+                          addNew(),
+                        ],
+                      ),
+                    ),
+                    child: ImageIcon(AssetImage("assets/icons/add.png"),
                         color: Colors.white),
                     style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
-                        primary: Color.fromRGBO(22, 22, 22, 1),
+                        primary:
+                            Color.fromRGBO(22, 22, 22, 1), // <-- Button color
+                        onPrimary: Color.fromRGBO(
+                            227, 255, 235, 1), // <-- Splash color
                         elevation: 8),
                   ),
                 ],
