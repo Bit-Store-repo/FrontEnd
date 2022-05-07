@@ -19,7 +19,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   await Hive.initFlutter('passwordDB');
   runApp(MaterialApp(
-    initialRoute: 'swipe_screen',
+    initialRoute: 'home',
     routes: {
       // '/': (context) => loading(),
 

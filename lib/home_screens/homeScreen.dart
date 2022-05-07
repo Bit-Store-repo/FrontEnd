@@ -1,4 +1,6 @@
 // importing the account page screen
+import 'dart:convert';
+
 import 'package:bit_store/account_pages/account_landing.dart';
 import 'package:bit_store/home_screens/widgets/folders.dart';
 import 'package:bit_store/home_screens/widgets/new.dart';
@@ -7,6 +9,8 @@ import 'package:bit_store/home_screens/widgets/passwords.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+//  importing mongoDB
 
 class homeScreen extends StatefulWidget {
   const homeScreen({Key? key}) : super(key: key);
@@ -20,7 +24,7 @@ class _homeScreenState extends State<homeScreen> {
       'https://storage.googleapis.com/download/storage/v1/b/edumilieu-3b218.appspot.com/o/cf85a769-6e44-4c9e-a462-cec00eed51f0.png?generation=1650383943652227&alt=media';
 
   //  An example data
-  List resData = [
+  List resData1 = [
     'root',
     '',
     '',
@@ -119,7 +123,7 @@ class _homeScreenState extends State<homeScreen> {
   List findFavorites(data, favorites) {
     // print('recursion');
     for (int i = 3; i < data.length; i++) {
-      if (data[i].runtimeType == List<Object>) {
+      if (data[i].runtimeType == List<dynamic>) {
         favorites = findFavorites(data[i], favorites);
       } else {
         if (data[i].containsKey('favourite')) {
@@ -133,18 +137,20 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String jsonData = json.encode(resData1);
+    List resData = json.decode(jsonData);
+
     List password = [];
     List folder = [];
 
     for (int i = 3; i < resData.length; i++) {
-      if (resData[i].runtimeType == List<Object>) {
+      if (resData[i].runtimeType == List<dynamic>) {
         folder.add(resData[i]);
       } else {
         password.add(resData[i]);
       }
     }
     ;
-
     List favorites = findFavorites(resData, []);
 
     return Scaffold(

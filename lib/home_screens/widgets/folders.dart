@@ -19,7 +19,7 @@ class _foldersState extends State<folders> {
     List data = [];
 
     for (int i = 0; i < widget.folderData.length; i++) {
-      if (widget.folderData[i].runtimeType == List<Object>) {
+      if (widget.folderData[i].runtimeType == List<dynamic>) {
         folder.add(widget.folderData[i]);
         String name = widget.folderData[i][0];
         String about = widget.folderData[i][1];

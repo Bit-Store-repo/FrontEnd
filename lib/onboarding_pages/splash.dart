@@ -36,7 +36,7 @@ class _splashState extends State<splash> {
     // print(loggedIn);
 
     if (loggedIn == null) {
-      user.put('loggedIn', 'true');
+      // user.put('loggedIn', 'true');
       Navigator.pushReplacementNamed(context, 'login');
     } else {
       // user.delete('loggedIn');
