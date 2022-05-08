@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:bit_store/onboarding_pages/verifyMail.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class register extends StatefulWidget {
   const register({Key? key}) : super(key: key);
@@ -8,6 +12,31 @@ class register extends StatefulWidget {
 }
 
 class _registerState extends State<register> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  bool emailFlag = false;
+  String errMsg = "";
+
+  Future<http.Response> register(String email, String password) async {
+    return http.post(
+      Uri.parse('http://localhost:3000/signup'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode(<String, String>{'email': email, 'password': password}),
+    );
+  }
+
+  Future<http.Response> verify(String email) async {
+    return http.post(
+      Uri.parse('http://localhost:3000/user/verify'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode(<String, String>{'email': email}),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +98,7 @@ class _registerState extends State<register> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                     child: TextFormField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         icon: Image.asset(
@@ -105,6 +135,7 @@ class _registerState extends State<register> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                     child: TextFormField(
+                      controller: passwordController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         icon: Image.asset(
@@ -138,11 +169,81 @@ class _registerState extends State<register> {
                     ),
                   ),
                 ),
+                if (emailFlag) ...[
+                  SizedBox(
+                    height: 0,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      '${errMsg}',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                        fontFamily: 'gilroy',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
                 SizedBox(
                   height: 10,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () async {
+                    String email = emailController.text;
+                    String password = passwordController.text;
+
+                    if (email.isEmpty) {
+                      setState(() {
+                        emailController.text = email;
+                        passwordController.text = password;
+                        emailFlag = true;
+                        errMsg = "Email cannot be empty";
+                      });
+                    } else if (email.contains("@") == false ||
+                        email.contains(".com") == false) {
+                      setState(() {
+                        emailController.text = email;
+                        passwordController.text = password;
+                        emailFlag = true;
+                        errMsg = "Invalid Email";
+                      });
+                    } else if (password.isEmpty || password.length < 8) {
+                      setState(() {
+                        emailController.text = email;
+                        passwordController.text = password;
+                        emailFlag = true;
+                        if (password.isEmpty) {
+                          errMsg = "Password cannot be empty";
+                        } else {
+                          errMsg = "Password needs min 8 characters";
+                        }
+                      });
+                    } else {
+                      http.Response response = await register(email, password);
+                      Map res = json.decode(response.body);
+
+                      if (res.containsKey('message')) {
+                        setState(() {
+                          emailController.text = email;
+                          passwordController.text = password;
+                          emailFlag = true;
+                          errMsg = res['message'];
+                        });
+                      } else {
+                        await verify(email);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => verifyMail(
+                                    emailData: res,
+                                  )),
+                        );
+                      }
+                    }
+                  },
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(

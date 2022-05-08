@@ -11,7 +11,6 @@ import 'package:bit_store/onboarding_pages/register.dart';
 // importing all the onboarding pages
 import 'package:bit_store/onboarding_pages/splash.dart';
 import 'package:bit_store/onboarding_pages/swipe_screen.dart';
-import 'package:bit_store/onboarding_pages/verifyMail.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -19,7 +18,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   await Hive.initFlutter('passwordDB');
   runApp(MaterialApp(
-    initialRoute: 'home',
+    initialRoute: 'login',
     routes: {
       // '/': (context) => loading(),
 
@@ -28,7 +27,7 @@ void main() async {
       'swipe_screen': (context) => swipe_screen(),
       'login': (context) => login_screen(),
       'register': (context) => register(),
-      'verifyMail': (context) => verifyMail(),
+      // 'verifyMail': (context) => verifyMail(),
       'forgotPassword': (context) => forgotPassword(),
 
       //  account screens come ova here

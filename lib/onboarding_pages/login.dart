@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:bit_store/home_screens/homeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class login_screen extends StatefulWidget {
   const login_screen({Key? key}) : super(key: key);
@@ -8,6 +12,22 @@ class login_screen extends StatefulWidget {
 }
 
 class _login_screenState extends State<login_screen> {
+  Future<http.Response> login(String email, String password) async {
+    return http.post(
+      Uri.parse('http://localhost:3000/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode(<String, String>{'email': email, 'password': password}),
+    );
+  }
+
+  bool emailFlag = false;
+  String errMsg = "";
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +89,7 @@ class _login_screenState extends State<login_screen> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                     child: TextFormField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         icon: Image.asset(
@@ -76,7 +97,7 @@ class _login_screenState extends State<login_screen> {
                           color: Color.fromRGBO(77, 77, 77, 1),
                         ),
                         label: Text(
-                          'Username/Email',
+                          'Email',
                           style: TextStyle(
                               fontFamily: 'gilroy',
                               fontWeight: FontWeight.w500,
@@ -105,6 +126,7 @@ class _login_screenState extends State<login_screen> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                     child: TextFormField(
+                      controller: passwordController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         icon: Image.asset(
@@ -123,6 +145,23 @@ class _login_screenState extends State<login_screen> {
                     ),
                   ),
                 ),
+                if (emailFlag) ...[
+                  SizedBox(
+                    height: 0,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      '${errMsg}',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                        fontFamily: 'gilroy',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
                 SizedBox(
                   height: 10,
                 ),
@@ -142,7 +181,55 @@ class _login_screenState extends State<login_screen> {
                   height: 10,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    String email = emailController.text;
+                    String password = passwordController.text;
+
+                    if (email.isEmpty) {
+                      setState(() {
+                        emailController.text = email;
+                        passwordController.text = password;
+                        emailFlag = true;
+                        errMsg = "Email cannot be empty";
+                      });
+                    } else if (email.contains("@") == false ||
+                        email.contains(".com") == false) {
+                      setState(() {
+                        emailController.text = email;
+                        passwordController.text = password;
+                        emailFlag = true;
+                        errMsg = "Invalid Email";
+                      });
+                    } else if (password.isEmpty || password.length < 8) {
+                      setState(() {
+                        emailController.text = email;
+                        passwordController.text = password;
+                        emailFlag = true;
+                        if (password.isEmpty) {
+                          errMsg = "Password cannot be empty";
+                        } else {
+                          errMsg = "Password needs min 8 characters";
+                        }
+                      });
+                    } else {
+                      http.Response response = await login(email, password);
+                      Map res = json.decode(response.body);
+
+                      if (res.containsKey('message')) {
+                        setState(() {
+                          emailController.text = email;
+                          passwordController.text = password;
+                          emailFlag = true;
+                          errMsg = res['message'];
+                        });
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => homeScreen()),
+                        );
+                      }
+                    }
+                  },
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                     child: Text(
