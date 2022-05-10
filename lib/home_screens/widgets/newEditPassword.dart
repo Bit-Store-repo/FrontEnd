@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 class newEditPassword extends StatefulWidget {
   const newEditPassword(
-      {Key? key, required this.passwordData, required this.type})
+      {Key? key,
+      required this.passwordData,
+      required this.type,
+      required this.traversal})
       : super(key: key);
   final Map passwordData;
   final String type;
+  final List traversal;
 
   @override
   _newEditPasswordState createState() => _newEditPasswordState();
@@ -16,10 +22,33 @@ class _newEditPasswordState extends State<newEditPassword> {
   bool passwordVisible = false;
   String dropdownValue = 'google';
 
+  TextEditingController nameController = TextEditingController();
+  TextEditingController aboutController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  List resData1 = [];
+
+  void cacheData(dynamic value) async {
+    Box data = await Hive.openBox('passwordData');
+    data.put('myData', value);
+  }
+
+  void getCache() async {
+    Box data = await Hive.openBox('passwordData');
+    // print(data.get('myData'));
+    // hello.add(data.get('myData'));
+    if (resData1.isEmpty) {
+      setState(() {
+        resData1 = data.get('myData');
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    getCache();
+
     Map passwordData = widget.passwordData;
 
     // Map passwordData = widget.passwordData;
@@ -37,10 +66,13 @@ class _newEditPasswordState extends State<newEditPassword> {
       'Four',
     ];
 
+    print(widget.traversal);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(75.0),
         child: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           shadowColor: Color.fromRGBO(35, 35, 35, 0.2),
           flexibleSpace: SafeArea(
@@ -51,7 +83,10 @@ class _newEditPasswordState extends State<newEditPassword> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      int count = 0;
+                      Navigator.popUntil(context, (route) {
+                        return count++ == 2;
+                      });
                     },
                     child: ImageIcon(AssetImage("assets/icons/back.png"),
                         color: Color.fromRGBO(22, 22, 22, 1)),
@@ -142,6 +177,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                           child: TextFormField(
+                            controller: nameController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               label: Text(
@@ -179,6 +215,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                           child: TextFormField(
+                            controller: nameController,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               label: Text(
@@ -231,6 +268,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       TextFormField(
+                                        controller: aboutController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           label: Text(
@@ -286,6 +324,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       TextFormField(
+                                        controller: aboutController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           label: Text(
@@ -342,6 +381,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       TextFormField(
+                                        controller: emailController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           label: Text(
@@ -396,6 +436,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       TextFormField(
+                                        controller: emailController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           label: Text(
@@ -617,6 +658,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                   children: [
                                     if (type == 'New') ...[
                                       TextFormField(
+                                        controller: passwordController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           label: Text(
@@ -633,6 +675,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                     ],
                                     if (type == 'Edit') ...[
                                       TextFormField(
+                                        controller: passwordController,
                                         decoration: InputDecoration(
                                           border: InputBorder.none,
                                           label: Text(
@@ -655,9 +698,18 @@ class _newEditPasswordState extends State<newEditPassword> {
                               ),
                               InkWell(
                                   onTap: () {
+                                    String name = nameController.text;
+                                    String about = aboutController.text;
+                                    String email = emailController.text;
+
                                     var uuid = Uuid();
                                     var uid = uuid.v4();
-                                    setState(() {});
+                                    setState(() {
+                                      nameController.text = name;
+                                      aboutController.text = about;
+                                      emailController.text = email;
+                                      passwordController.text = uid;
+                                    });
                                   },
                                   child: ImageIcon(
                                     AssetImage("assets/icons/gear.png"),
@@ -686,7 +738,49 @@ class _newEditPasswordState extends State<newEditPassword> {
                     ),
 
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        String name = nameController.text;
+                        String about = aboutController.text;
+                        String email = emailController.text;
+                        String password = passwordController.text;
+
+                        Map newPassword = {
+                          'name': name,
+                          'password': password,
+                          'icon': 'google',
+                          'about': about,
+                          'email': email,
+                        };
+                        if (newPassword['email'] == "") {
+                          newPassword.remove('email');
+                        }
+                        print(newPassword);
+
+                        if (type == "New") {
+                          // function that gets the index of that traversal
+                          // array from the data
+                          int getIndex(List alist, int index) {
+                            int counter = 0;
+                            for (int i = 0; i < alist.length; i++) {
+                              if (alist[i].runtimeType == List<dynamic>) {
+                                counter += 1;
+                              }
+                              if (counter == index) {
+                                return i;
+                              }
+                            }
+                            return -1;
+                          }
+
+                          List tempArray = resData1;
+                          for (int i = 0; i < widget.traversal.length; i++) {
+                            tempArray = tempArray[
+                                getIndex(resData1, widget.traversal[i])];
+                          }
+                          tempArray.add(newPassword);
+                          cacheData(resData1);
+                        }
+                      },
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class folders extends StatefulWidget {
-  const folders({Key? key, required this.folderData}) : super(key: key);
+  const folders({Key? key, required this.folderData, required this.traversal})
+      : super(key: key);
   final List folderData;
+  final List traversal;
 
   @override
   _foldersState createState() => _foldersState();
@@ -43,11 +45,14 @@ class _foldersState extends State<folders> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
+              // push the index value to traversal
+              widget.traversal.add(index + 1);
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => folderPage(
                           folderData: folder[index],
+                          traversal: widget.traversal,
                         )),
               );
             },

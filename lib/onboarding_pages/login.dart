@@ -1,7 +1,11 @@
 import 'dart:convert';
 
 import 'package:bit_store/home_screens/homeScreen.dart';
+import 'package:crypto/crypto.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class login_screen extends StatefulWidget {
@@ -21,6 +25,126 @@ class _login_screenState extends State<login_screen> {
       body: json.encode(<String, String>{'email': email, 'password': password}),
     );
   }
+
+  Future<http.Response> putData(String key, dynamic value) async {
+    return http.post(
+      Uri.parse('http://localhost:3001/chain/add'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode(<String, String>{'key': key, 'data': value}),
+    );
+  }
+
+  void cacheData(dynamic value) async {
+    Box data = await Hive.openBox('passwordData');
+    data.put('myData', value);
+  }
+
+  Future<http.Response> getData(String key) async {
+    return http.get(
+      Uri.parse('http://localhost:3001/chain/${key}'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+  }
+
+  List resData1 = [
+    'root',
+    '',
+    '',
+    {
+      'name': 'Amazon account 1',
+      'password': 'Amazon password',
+      'icon': 'amazon',
+      'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+    },
+    {
+      'name': 'Gmail',
+      'favourite': true,
+      'email': 'xyz@gmail.com',
+      'password': 'xyzXYZ123',
+      'icon': 'google',
+      'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+    },
+    [
+      'Cards',
+      'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+      'card',
+      {
+        'name': 'Amazon account 1',
+        'favourite': true,
+        'password': 'Amazon password',
+        'icon': 'amazon',
+        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+      },
+      {
+        'name': 'Gmail',
+        'favourite': true,
+        'email': 'xyz@gmail.com',
+        'password': 'xyzXYZ123',
+        'icon': 'google',
+        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+      },
+    ],
+    [
+      'Google Accounts',
+      'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+      'google',
+      {
+        'name': 'Firebase',
+        'password': 'Amazon password',
+        'icon': 'amazon',
+        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+      },
+      {
+        'name': 'Gmail',
+        'email': 'xyz@gmail.com',
+        'password': 'xyzXYZ123',
+        'icon': 'google',
+        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+      },
+      [
+        'Cards',
+        'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+        'card',
+        {
+          'name': 'Amazon account 1',
+          'favourite': true,
+          'password': 'Amazon password',
+          'icon': 'amazon',
+          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+        },
+        {
+          'name': 'Gmail',
+          'favourite': true,
+          'email': 'xyz@gmail.com',
+          'password': 'xyzXYZ123',
+          'icon': 'google',
+          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+        },
+      ],
+      [
+        'Google sub folder',
+        'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
+        'google',
+        {
+          'name': 'Firebase',
+          'password': 'Amazon password',
+          'icon': 'amazon',
+          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+        },
+        {
+          'name': 'Gmail',
+          'email': 'xyz@gmail.com',
+          'password': 'xyzXYZ123',
+          'icon': 'google',
+          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
+        },
+      ],
+    ],
+  ];
 
   bool emailFlag = false;
   String errMsg = "";
@@ -223,10 +347,53 @@ class _login_screenState extends State<login_screen> {
                           errMsg = res['message'];
                         });
                       } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => homeScreen()),
-                        );
+                        http.Response passwordData = await getData(res['key']);
+                        Map myData = json.decode(passwordData.body);
+
+                        final encThis = json.encode(resData1);
+                        final key = encrypt.Key.fromUtf8(sha256
+                            .convert(utf8.encode(password))
+                            .toString()
+                            .substring(0, 16));
+                        final iv = encrypt.IV.fromLength(8);
+                        final encrypter = encrypt.Encrypter(encrypt.AES(key));
+
+                        String decryptAES(String base64Text) {
+                          String decrypted = encrypter.decrypt(
+                              encrypt.Encrypted.fromBase64(base64Text),
+                              iv: iv);
+                          return decrypted;
+                        }
+
+                        // final encrypted = encrypter.encrypt(encThis, iv: iv);
+                        // String fromBase64 = encrypted.base64;
+
+                        // http.Response putInfo =
+                        //     await putData(res['key'], encrypted.base64);
+                        // List info = json.decode(putInfo.body);
+                        // print(info);
+
+                        if (myData.containsKey('message')) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => homeScreen(
+                                      myData: [],
+                                    )),
+                          );
+                        } else {
+                          String decrypted = decryptAES(myData['data']);
+                          List decData = json.decode(decrypted);
+                          cacheData(decData);
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => homeScreen(
+                                      myData: decData,
+                                    )),
+                          );
+                        }
                       }
                     }
                   },

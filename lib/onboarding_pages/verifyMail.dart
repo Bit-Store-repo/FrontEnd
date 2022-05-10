@@ -178,7 +178,10 @@ class _verifyMailState extends State<verifyMail> {
                       if (res['message'] == "email verified") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => homeScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => homeScreen(
+                                    myData: [],
+                                  )),
                         );
                       } else {
                         setState(() {

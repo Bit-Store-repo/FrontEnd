@@ -6,9 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class folderPage extends StatefulWidget {
-  const folderPage({Key? key, required this.folderData}) : super(key: key);
+  const folderPage(
+      {Key? key, required this.folderData, required this.traversal})
+      : super(key: key);
 
   final List folderData;
+  final List traversal;
 
   @override
   _folderPageState createState() => _folderPageState();
@@ -32,18 +35,20 @@ class _folderPageState extends State<folderPage> {
     List folder = [];
 
     for (int i = 3; i < widget.folderData.length; i++) {
-      if (widget.folderData[i].runtimeType == List<Object>) {
+      if (widget.folderData[i].runtimeType == List<dynamic>) {
         folder.add(widget.folderData[i]);
       } else {
         password.add(widget.folderData[i]);
       }
     }
     ;
+    print(widget.traversal);
 
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(75.0),
         child: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           shadowColor: Color.fromRGBO(35, 35, 35, 0.2),
           flexibleSpace: SafeArea(
@@ -54,6 +59,8 @@ class _folderPageState extends State<folderPage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
+                      widget.traversal.removeAt(widget.traversal.length - 1);
+                      print(widget.traversal);
                       Navigator.pop(context);
                     },
                     child: ImageIcon(AssetImage("assets/icons/back.png"),
@@ -85,7 +92,9 @@ class _folderPageState extends State<folderPage> {
                       context: context,
                       builder: (context) => Stack(
                         children: <Widget>[
-                          addNew(),
+                          addNew(
+                            traversal: widget.traversal,
+                          ),
                         ],
                       ),
                     ),
@@ -203,6 +212,7 @@ class _folderPageState extends State<folderPage> {
                     ),
                     folders(
                       folderData: folder,
+                      traversal: widget.traversal,
                     ),
                   ],
                 ),

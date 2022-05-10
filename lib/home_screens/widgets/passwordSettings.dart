@@ -167,6 +167,7 @@ class _passwordSettingsState extends State<passwordSettings> {
                           builder: (context) => newEditPassword(
                                 passwordData: widget.passwordData,
                                 type: 'Edit',
+                                traversal: [],
                               )),
                     );
                   },

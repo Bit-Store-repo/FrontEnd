@@ -2,6 +2,18 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "args",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "asn1lib",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/asn1lib-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "async",
       "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.8.2",
       "packageUri": "lib/",
@@ -70,6 +82,12 @@
     {
       "name": "cupertino_icons",
       "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "encrypt",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/encrypt-5.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -392,7 +410,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-05-08T06:26:36.222234Z",
+  "generated": "2022-05-09T19:23:14.750247Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

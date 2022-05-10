@@ -8,13 +8,13 @@ import 'package:bit_store/home_screens/widgets/new.dart';
 import 'package:bit_store/home_screens/widgets/passwords.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-//  importing mongoDB
-
 class homeScreen extends StatefulWidget {
-  const homeScreen({Key? key}) : super(key: key);
-
+  const homeScreen({Key? key, required this.myData}) : super(key: key);
+  final dynamic myData;
   @override
   _homeScreenState createState() => _homeScreenState();
 }
@@ -24,7 +24,8 @@ class _homeScreenState extends State<homeScreen> {
       'https://storage.googleapis.com/download/storage/v1/b/edumilieu-3b218.appspot.com/o/cf85a769-6e44-4c9e-a462-cec00eed51f0.png?generation=1650383943652227&alt=media';
 
   //  An example data
-  List resData1 = [
+
+  List resData2 = [
     'root',
     '',
     '',
@@ -135,8 +136,23 @@ class _homeScreenState extends State<homeScreen> {
     return favorites;
   }
 
+  List resData1 = [];
+
+  void getCache() async {
+    Box data = await Hive.openBox('passwordData');
+    if (resData1.isEmpty) {
+      setState(() {
+        resData1 = data.get('myData');
+      });
+    }
+  }
+
+  List traversal = [];
+
   @override
   Widget build(BuildContext context) {
+    getCache();
+
     String jsonData = json.encode(resData1);
     List resData = json.decode(jsonData);
 
@@ -154,6 +170,99 @@ class _homeScreenState extends State<homeScreen> {
     List favorites = findFavorites(resData, []);
 
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(75.0),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          shadowColor: Color.fromRGBO(35, 35, 35, 0.2),
+          flexibleSpace: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset('assets/logo.png'),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => showMaterialModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20)),
+                          ),
+                          context: context,
+                          builder: (context) => Stack(
+                            children: <Widget>[
+                              addNew(
+                                traversal: [],
+                              ),
+                            ],
+                          ),
+                        ),
+                        child: ImageIcon(AssetImage("assets/icons/add.png"),
+                            color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            primary: Color.fromRGBO(
+                                22, 22, 22, 1), // <-- Button color
+                            onPrimary: Color.fromRGBO(
+                                227, 255, 235, 1), // <-- Splash color
+                            elevation: 8),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      InkWell(
+                        onTap: () => showMaterialModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20)),
+                          ),
+                          context: context,
+                          builder: (context) => Stack(
+                            children: <Widget>[account_landing()],
+                          ),
+                        ),
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(35, 35, 35, 0.4),
+                                offset: const Offset(
+                                  0,
+                                  4,
+                                ),
+                                blurRadius: 34,
+                                spreadRadius: 1,
+                              ),
+                            ],
+                            image: DecorationImage(
+                                image: NetworkImage(imageUrl),
+                                fit: BoxFit.cover),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.white, width: 2),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
       backgroundColor: Color.fromRGBO(246, 246, 246, 1),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -172,130 +281,57 @@ class _homeScreenState extends State<homeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset('assets/logo.png'),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            ElevatedButton(
-                              onPressed: () => showMaterialModalBottomSheet(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20)),
-                                ),
-                                context: context,
-                                builder: (context) => Stack(
-                                  children: <Widget>[
-                                    addNew(),
-                                  ],
-                                ),
-                              ),
-                              child: ImageIcon(
-                                  AssetImage("assets/icons/add.png"),
-                                  color: Colors.white),
-                              style: ElevatedButton.styleFrom(
-                                  shape: CircleBorder(),
-                                  primary: Color.fromRGBO(
-                                      22, 22, 22, 1), // <-- Button color
-                                  onPrimary: Color.fromRGBO(
-                                      227, 255, 235, 1), // <-- Splash color
-                                  elevation: 8),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                              onTap: () => showMaterialModalBottomSheet(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20)),
-                                ),
-                                context: context,
-                                builder: (context) => Stack(
-                                  children: <Widget>[account_landing()],
-                                ),
-                              ),
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color.fromRGBO(35, 35, 35, 0.4),
-                                      offset: const Offset(
-                                        0,
-                                        4,
-                                      ),
-                                      blurRadius: 34,
-                                      spreadRadius: 1,
-                                    ),
-                                  ],
-                                  image: DecorationImage(
-                                      image: NetworkImage(imageUrl),
-                                      fit: BoxFit.cover),
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.white, width: 2),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
                     SizedBox(
-                      height: 40,
+                      height: 0,
                     ),
-                    Text(
-                      'Favorites',
-                      style: TextStyle(
-                          fontFamily: 'gilroy',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: Color.fromRGBO(77, 77, 77, 1)),
-                    ),
-                    passwords(
-                      passwordData: favorites,
-                      favourite: true,
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      'Folders',
-                      style: TextStyle(
-                          fontFamily: 'gilroy',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: Color.fromRGBO(77, 77, 77, 1)),
-                    ),
-                    folders(
-                      folderData: folder,
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      'Passwords',
-                      style: TextStyle(
-                          fontFamily: 'gilroy',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: Color.fromRGBO(77, 77, 77, 1)),
-                    ),
-                    passwords(
-                      passwordData: password,
-                      favourite: false,
-                    ),
+                    if (!favorites.isEmpty) ...[
+                      Text(
+                        'Favorites',
+                        style: TextStyle(
+                            fontFamily: 'gilroy',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: Color.fromRGBO(77, 77, 77, 1)),
+                      ),
+                      passwords(
+                        passwordData: favorites,
+                        favourite: true,
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                    ],
+                    if (!folder.isEmpty) ...[
+                      Text(
+                        'Folders',
+                        style: TextStyle(
+                            fontFamily: 'gilroy',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: Color.fromRGBO(77, 77, 77, 1)),
+                      ),
+                      folders(
+                        folderData: folder,
+                        traversal: [],
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                    ],
+                    if (!password.isEmpty) ...[
+                      Text(
+                        'Passwords',
+                        style: TextStyle(
+                            fontFamily: 'gilroy',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: Color.fromRGBO(77, 77, 77, 1)),
+                      ),
+                      passwords(
+                        passwordData: password,
+                        favourite: false,
+                      ),
+                    ]
                   ],
                 ),
               ),

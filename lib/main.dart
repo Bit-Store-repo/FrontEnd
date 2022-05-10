@@ -18,7 +18,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   await Hive.initFlutter('passwordDB');
   runApp(MaterialApp(
-    initialRoute: 'login',
+    initialRoute: 'home',
     routes: {
       // '/': (context) => loading(),
 
@@ -35,10 +35,13 @@ void main() async {
       'changeMail': (context) => changeMail(),
 
       //  all the main_application pages go here
-      'home': (context) => homeScreen(),
+      'home': (context) => homeScreen(
+            myData: [],
+          ),
       'newPassword': (context) => newEditPassword(
             passwordData: {},
             type: 'New',
+            traversal: [],
           ),
       'newFolder': (context) => newEditFolder(folderData: {}, type: 'New'),
     },
