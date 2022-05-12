@@ -35,15 +35,17 @@ void main() async {
       'changeMail': (context) => changeMail(),
 
       //  all the main_application pages go here
-      'home': (context) => homeScreen(
-            myData: [],
-          ),
+      'home': (context) => homeScreen(),
       'newPassword': (context) => newEditPassword(
             passwordData: {},
             type: 'New',
             traversal: [],
           ),
-      'newFolder': (context) => newEditFolder(folderData: {}, type: 'New'),
+      'newFolder': (context) => newEditFolder(
+            folderData: {},
+            type: 'New',
+            traversal: [],
+          ),
     },
   ));
 }

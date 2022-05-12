@@ -6,10 +6,10 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class passwords extends StatefulWidget {
   const passwords(
-      {Key? key, required this.passwordData, required this.favourite})
+      {Key? key, required this.passwordData, required this.traversal})
       : super(key: key);
   final List passwordData;
-  final bool favourite;
+  final List traversal;
 
   @override
   _passwordsState createState() => _passwordsState();
@@ -34,6 +34,7 @@ class _passwordsState extends State<passwords> {
                 MaterialPageRoute(
                     builder: (context) => passwordPage(
                           passwordData: data[index],
+                          traversal: widget.traversal,
                         )),
               );
             },
@@ -121,22 +122,24 @@ class _passwordsState extends State<passwords> {
                         Expanded(
                             flex: 1,
                             child: InkWell(
-                                onTap: () => showMaterialModalBottomSheet(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20)),
-                                      ),
-                                      context: context,
-                                      builder: (context) => Stack(
-                                        children: <Widget>[
-                                          passwordSettings(
-                                            passwordData: data[index],
-                                            favourite: widget.favourite,
-                                          )
-                                        ],
-                                      ),
+                                onTap: () {
+                                  showMaterialModalBottomSheet(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20)),
                                     ),
+                                    context: context,
+                                    builder: (context) => Stack(
+                                      children: <Widget>[
+                                        passwordSettings(
+                                          passwordData: data[index],
+                                          traversal: widget.traversal,
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
                                 child: ImageIcon(
                                   AssetImage("assets/icons/dots.png"),
                                   color: Color.fromRGBO(255, 174, 188, 1),

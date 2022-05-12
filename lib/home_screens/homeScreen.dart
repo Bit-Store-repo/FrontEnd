@@ -6,15 +6,17 @@ import 'package:bit_store/home_screens/widgets/folders.dart';
 import 'package:bit_store/home_screens/widgets/new.dart';
 //  importing the builder widgets
 import 'package:bit_store/home_screens/widgets/passwords.dart';
+import 'package:crypto/crypto.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class homeScreen extends StatefulWidget {
-  const homeScreen({Key? key, required this.myData}) : super(key: key);
-  final dynamic myData;
+  const homeScreen({Key? key}) : super(key: key);
   @override
   _homeScreenState createState() => _homeScreenState();
 }
@@ -22,104 +24,6 @@ class homeScreen extends StatefulWidget {
 class _homeScreenState extends State<homeScreen> {
   String imageUrl =
       'https://storage.googleapis.com/download/storage/v1/b/edumilieu-3b218.appspot.com/o/cf85a769-6e44-4c9e-a462-cec00eed51f0.png?generation=1650383943652227&alt=media';
-
-  //  An example data
-
-  List resData2 = [
-    'root',
-    '',
-    '',
-    {
-      'name': 'Amazon account 1',
-      'password': 'Amazon password',
-      'icon': 'amazon',
-      'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-    },
-    {
-      'name': 'Gmail',
-      'favourite': true,
-      'email': 'xyz@gmail.com',
-      'password': 'xyzXYZ123',
-      'icon': 'google',
-      'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-    },
-    [
-      'Cards',
-      'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-      'card',
-      {
-        'name': 'Amazon account 1',
-        'favourite': true,
-        'password': 'Amazon password',
-        'icon': 'amazon',
-        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-      },
-      {
-        'name': 'Gmail',
-        'favourite': true,
-        'email': 'xyz@gmail.com',
-        'password': 'xyzXYZ123',
-        'icon': 'google',
-        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-      },
-    ],
-    [
-      'Google Accounts',
-      'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-      'google',
-      {
-        'name': 'Firebase',
-        'password': 'Amazon password',
-        'icon': 'amazon',
-        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-      },
-      {
-        'name': 'Gmail',
-        'email': 'xyz@gmail.com',
-        'password': 'xyzXYZ123',
-        'icon': 'google',
-        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-      },
-      [
-        'Cards',
-        'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-        'card',
-        {
-          'name': 'Amazon account 1',
-          'favourite': true,
-          'password': 'Amazon password',
-          'icon': 'amazon',
-          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-        },
-        {
-          'name': 'Gmail',
-          'favourite': true,
-          'email': 'xyz@gmail.com',
-          'password': 'xyzXYZ123',
-          'icon': 'google',
-          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-        },
-      ],
-      [
-        'Google sub folder',
-        'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-        'google',
-        {
-          'name': 'Firebase',
-          'password': 'Amazon password',
-          'icon': 'amazon',
-          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-        },
-        {
-          'name': 'Gmail',
-          'email': 'xyz@gmail.com',
-          'password': 'xyzXYZ123',
-          'icon': 'google',
-          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-        },
-      ],
-    ],
-  ];
 
   List findFavorites(data, favorites) {
     // print('recursion');
@@ -136,15 +40,35 @@ class _homeScreenState extends State<homeScreen> {
     return favorites;
   }
 
-  List resData1 = [];
+  List resData = [];
+  Map userData = {};
 
   void getCache() async {
-    Box data = await Hive.openBox('passwordData');
-    if (resData1.isEmpty) {
+    Box passwordData = await Hive.openBox('passwordData');
+    Box user = await Hive.openBox('userData');
+    if (resData.isEmpty) {
       setState(() {
-        resData1 = data.get('myData');
+        resData = passwordData.get('myData');
+        userData = user.get('user');
       });
     }
+  }
+
+  Future<http.Response> putData(
+      String pKey, dynamic value, String password) async {
+    final key = encrypt.Key.fromUtf8(
+        sha256.convert(utf8.encode(password)).toString().substring(0, 16));
+    final iv = encrypt.IV.fromLength(8);
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    final encrypted = encrypter.encrypt(json.encode(value), iv: iv).base64;
+
+    return http.post(
+      Uri.parse('http://localhost:3001/chain/add'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode(<String, String>{'key': pKey, 'data': encrypted}),
+    );
   }
 
   List traversal = [];
@@ -152,9 +76,7 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     getCache();
-
-    String jsonData = json.encode(resData1);
-    List resData = json.decode(jsonData);
+    print(userData);
 
     List password = [];
     List folder = [];
@@ -168,7 +90,6 @@ class _homeScreenState extends State<homeScreen> {
     }
     ;
     List favorites = findFavorites(resData, []);
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(75.0),
@@ -190,6 +111,22 @@ class _homeScreenState extends State<homeScreen> {
                   ),
                   Row(
                     children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          http.Response putInfo = await putData(
+                              userData['key'], resData, userData['password']);
+                          List info = json.decode(putInfo.body);
+                        },
+                        child: ImageIcon(AssetImage("assets/icons/forward.png"),
+                            color: Colors.white),
+                        style: ElevatedButton.styleFrom(
+                            shape: CircleBorder(),
+                            primary: Color.fromRGBO(
+                                22, 22, 22, 1), // <-- Button color
+                            onPrimary: Color.fromRGBO(
+                                227, 255, 235, 1), // <-- Splash color
+                            elevation: 8),
+                      ),
                       ElevatedButton(
                         onPressed: () => showMaterialModalBottomSheet(
                           shape: RoundedRectangleBorder(
@@ -295,7 +232,7 @@ class _homeScreenState extends State<homeScreen> {
                       ),
                       passwords(
                         passwordData: favorites,
-                        favourite: true,
+                        traversal: [],
                       ),
                       SizedBox(
                         height: 25,
@@ -329,7 +266,7 @@ class _homeScreenState extends State<homeScreen> {
                       ),
                       passwords(
                         passwordData: password,
-                        favourite: false,
+                        traversal: [],
                       ),
                     ]
                   ],

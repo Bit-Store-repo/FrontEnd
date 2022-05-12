@@ -3,6 +3,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 
+import '../homeScreen.dart';
+
 class newEditPassword extends StatefulWidget {
   const newEditPassword(
       {Key? key,
@@ -48,7 +50,6 @@ class _newEditPasswordState extends State<newEditPassword> {
   @override
   Widget build(BuildContext context) {
     getCache();
-
     Map passwordData = widget.passwordData;
 
     // Map passwordData = widget.passwordData;
@@ -66,7 +67,14 @@ class _newEditPasswordState extends State<newEditPassword> {
       'Four',
     ];
 
-    print(widget.traversal);
+    if (widget.type == 'Edit') {
+      nameController.text = widget.passwordData['name'];
+      aboutController.text = widget.passwordData['about'];
+      if (widget.passwordData.containsKey('email')) {
+        emailController.text = widget.passwordData['email'];
+      }
+      passwordController.text = widget.passwordData['password'];
+    }
 
     return Scaffold(
       appBar: PreferredSize(
@@ -83,10 +91,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      int count = 0;
-                      Navigator.popUntil(context, (route) {
-                        return count++ == 2;
-                      });
+                      Navigator.pop(context);
                     },
                     child: ImageIcon(AssetImage("assets/icons/back.png"),
                         color: Color.fromRGBO(22, 22, 22, 1)),
@@ -155,462 +160,226 @@ class _newEditPasswordState extends State<newEditPassword> {
                     ),
 
                     //  Name of password
-                    if (type == 'New') ...[
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(35, 35, 35, 0.8),
-                              offset: const Offset(
-                                0,
-                                4,
-                              ),
-                              blurRadius: 14,
-                              spreadRadius: -15,
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromRGBO(35, 35, 35, 0.8),
+                            offset: const Offset(
+                              0,
+                              4,
                             ),
-                          ],
-                          border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: TextFormField(
-                            controller: nameController,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              label: Text(
-                                'Enter name to identify',
-                                style: TextStyle(
-                                    fontFamily: 'gilroy',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(77, 77, 77, 1)),
-                              ),
+                            blurRadius: 14,
+                            spreadRadius: -15,
+                          ),
+                        ],
+                        border: Border.all(color: Colors.white, width: 2),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                        child: TextFormField(
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            label: Text(
+                              'Enter name to identify',
+                              style: TextStyle(
+                                  fontFamily: 'gilroy',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(77, 77, 77, 1)),
                             ),
                           ),
                         ),
                       ),
-                    ],
-                    if (type == 'Edit') ...[
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(35, 35, 35, 0.8),
-                              offset: const Offset(
-                                0,
-                                4,
-                              ),
-                              blurRadius: 14,
-                              spreadRadius: -15,
-                            ),
-                          ],
-                          border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                          child: TextFormField(
-                            controller: nameController,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              label: Text(
-                                '${passwordData['name']}',
-                                style: TextStyle(
-                                    fontFamily: 'gilroy',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(77, 77, 77, 1)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
 
                     //  Additional Info
-                    if (type == 'New') ...[
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                          height: 130,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(35, 35, 35, 0.8),
-                                offset: const Offset(
-                                  0,
-                                  4,
-                                ),
-                                blurRadius: 14,
-                                spreadRadius: -15,
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                        height: 130,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(35, 35, 35, 0.8),
+                              offset: const Offset(
+                                0,
+                                4,
                               ),
-                            ],
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TextFormField(
-                                        controller: aboutController,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          label: Text(
-                                            'Addtl. info to help you remember\n(optional)',
-                                            style: TextStyle(
-                                                fontFamily: 'gilroy',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                                color: Color.fromRGBO(
-                                                    77, 77, 77, 1)),
-                                          ),
+                              blurRadius: 14,
+                              spreadRadius: -15,
+                            ),
+                          ],
+                          border: Border.all(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 8,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    TextFormField(
+                                      controller: aboutController,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        label: Text(
+                                          'Addtl. info to help you remember',
+                                          style: TextStyle(
+                                              fontFamily: 'gilroy',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16,
+                                              color: Color.fromRGBO(
+                                                  77, 77, 77, 1)),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          )),
-                    ],
-                    if (type == 'Edit') ...[
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                          height: 130,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(35, 35, 35, 0.8),
-                                offset: const Offset(
-                                  0,
-                                  4,
-                                ),
-                                blurRadius: 14,
-                                spreadRadius: -15,
                               ),
                             ],
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TextFormField(
-                                        controller: aboutController,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          label: Text(
-                                            '${passwordData['about']}',
-                                            style: TextStyle(
-                                                fontFamily: 'gilroy',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                                color: Color.fromRGBO(
-                                                    77, 77, 77, 1)),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                    ],
+                        )),
 
                     //  email
-                    if (type == 'New') ...[
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(35, 35, 35, 0.8),
-                                offset: const Offset(
-                                  0,
-                                  4,
-                                ),
-                                blurRadius: 14,
-                                spreadRadius: -15,
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(35, 35, 35, 0.8),
+                              offset: const Offset(
+                                0,
+                                4,
                               ),
-                            ],
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TextFormField(
-                                        controller: emailController,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          label: Text(
-                                            'Email (optional)',
-                                            style: TextStyle(
-                                                fontFamily: 'gilroy',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                                color: Color.fromRGBO(
-                                                    77, 77, 77, 1)),
-                                          ),
+                              blurRadius: 14,
+                              spreadRadius: -15,
+                            ),
+                          ],
+                          border: Border.all(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 8,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    TextFormField(
+                                      controller: emailController,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        label: Text(
+                                          'Email (optional)',
+                                          style: TextStyle(
+                                              fontFamily: 'gilroy',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16,
+                                              color: Color.fromRGBO(
+                                                  77, 77, 77, 1)),
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          )),
-                    ],
-                    if (type == 'Edit') ...[
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(35, 35, 35, 0.8),
-                                offset: const Offset(
-                                  0,
-                                  4,
-                                ),
-                                blurRadius: 14,
-                                spreadRadius: -15,
                               ),
                             ],
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TextFormField(
-                                        controller: emailController,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          label: Text(
-                                            '${passwordData['email']}',
-                                            style: TextStyle(
-                                                fontFamily: 'gilroy',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                                color: Color.fromRGBO(
-                                                    77, 77, 77, 1)),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                    ],
+                        )),
 
                     //  Icon to display
-                    if (type == 'New') ...[
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(35, 35, 35, 0.8),
-                                offset: const Offset(
-                                  0,
-                                  4,
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.fromRGBO(35, 35, 35, 0.8),
+                              offset: const Offset(
+                                0,
+                                4,
+                              ),
+                              blurRadius: 14,
+                              spreadRadius: -15,
+                            ),
+                          ],
+                          border: Border.all(color: Colors.white, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                flex: 8,
+                                child: Text(
+                                  'Select Icon to display',
+                                  style: TextStyle(
+                                    fontFamily: 'gilroy',
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(27, 27, 27, 1),
+                                  ),
                                 ),
-                                blurRadius: 14,
-                                spreadRadius: -15,
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    DropdownButton<String>(
+                                      value: dropdownValue,
+                                      icon: ImageIcon(
+                                        AssetImage("assets/icons/down.png"),
+                                        color: Color.fromRGBO(27, 27, 27, 1),
+                                      ),
+                                      elevation: 16,
+                                      style: const TextStyle(
+                                          color: Color.fromRGBO(27, 27, 27, 1)),
+                                      onChanged: (dynamic? newValue) {
+                                        setState(() {
+                                          dropdownValue = newValue;
+                                        });
+                                      },
+                                      items: icons
+                                          .map<DropdownMenuItem<String>>(
+                                              (dynamic value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Text(
-                                    'Select Icon to display',
-                                    style: TextStyle(
-                                      fontFamily: 'gilroy',
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: Color.fromRGBO(27, 27, 27, 1),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      DropdownButton<String>(
-                                        value: dropdownValue,
-                                        icon: ImageIcon(
-                                          AssetImage("assets/icons/down.png"),
-                                          color: Color.fromRGBO(27, 27, 27, 1),
-                                        ),
-                                        elevation: 16,
-                                        style: const TextStyle(
-                                            color:
-                                                Color.fromRGBO(27, 27, 27, 1)),
-                                        onChanged: (dynamic? newValue) {
-                                          setState(() {
-                                            dropdownValue = newValue;
-                                          });
-                                        },
-                                        items: icons
-                                            .map<DropdownMenuItem<String>>(
-                                                (dynamic value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                    ],
-                    if (type == 'Edit') ...[
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(35, 35, 35, 0.8),
-                                offset: const Offset(
-                                  0,
-                                  4,
-                                ),
-                                blurRadius: 14,
-                                spreadRadius: -15,
-                              ),
-                            ],
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(
-                                  flex: 8,
-                                  child: Text(
-                                    'Select Icon to display',
-                                    style: TextStyle(
-                                      fontFamily: 'gilroy',
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                      color: Color.fromRGBO(27, 27, 27, 1),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      DropdownButton<String>(
-                                        value: passwordData['icon'],
-                                        icon: ImageIcon(
-                                          AssetImage("assets/icons/down.png"),
-                                          color: Color.fromRGBO(27, 27, 27, 1),
-                                        ),
-                                        elevation: 16,
-                                        style: const TextStyle(
-                                            color:
-                                                Color.fromRGBO(27, 27, 27, 1)),
-                                        onChanged: (dynamic? newValue) {
-                                          setState(() {
-                                            dropdownValue = newValue;
-                                          });
-                                        },
-                                        items: icons
-                                            .map<DropdownMenuItem<String>>(
-                                                (dynamic value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                    ],
+                        )),
 
                     SizedBox(
                       height: 25,
@@ -656,40 +425,21 @@ class _newEditPasswordState extends State<newEditPassword> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    if (type == 'New') ...[
-                                      TextFormField(
-                                        controller: passwordController,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          label: Text(
-                                            'Enter Password',
-                                            style: TextStyle(
-                                                fontFamily: 'gilroy',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                                color: Color.fromRGBO(
-                                                    77, 77, 77, 1)),
-                                          ),
+                                    TextFormField(
+                                      controller: passwordController,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        label: Text(
+                                          'Enter Password',
+                                          style: TextStyle(
+                                              fontFamily: 'gilroy',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16,
+                                              color: Color.fromRGBO(
+                                                  77, 77, 77, 1)),
                                         ),
                                       ),
-                                    ],
-                                    if (type == 'Edit') ...[
-                                      TextFormField(
-                                        controller: passwordController,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          label: Text(
-                                            '${passwordData['password']}',
-                                            style: TextStyle(
-                                                fontFamily: 'gilroy',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                                color: Color.fromRGBO(
-                                                    77, 77, 77, 1)),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -754,7 +504,6 @@ class _newEditPasswordState extends State<newEditPassword> {
                         if (newPassword['email'] == "") {
                           newPassword.remove('email');
                         }
-                        print(newPassword);
 
                         if (type == "New") {
                           // function that gets the index of that traversal
@@ -779,6 +528,60 @@ class _newEditPasswordState extends State<newEditPassword> {
                           }
                           tempArray.add(newPassword);
                           cacheData(resData1);
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => homeScreen()),
+                          );
+                        }
+                        if (type == "Edit") {
+                          // function that gets the index of that traversal
+                          // array from the data
+                          int getIndex(List alist, int index) {
+                            int counter = 0;
+                            for (int i = 0; i < alist.length; i++) {
+                              if (alist[i].runtimeType == List<dynamic>) {
+                                counter += 1;
+                              }
+                              if (counter == index) {
+                                return i;
+                              }
+                            }
+                            return -1;
+                          }
+
+                          List tempArray = resData1;
+                          for (int i = 0; i < widget.traversal.length; i++) {
+                            tempArray = tempArray[
+                                getIndex(resData1, widget.traversal[i])];
+                          }
+
+                          Map tempMap = {};
+                          int i = 0;
+                          for (i = 0; i < tempArray.length; i++) {
+                            if (tempArray[i] is Map<dynamic, dynamic>) {
+                              if (tempArray[i]['name'] ==
+                                  passwordData['name']) {
+                                break;
+                              }
+                            }
+                          }
+                          tempMap = tempArray[i];
+                          tempMap['name'] = name;
+                          tempMap['about'] = about;
+                          if (email.isNotEmpty) {
+                            tempMap['email'] = email;
+                          }
+                          tempMap['password'] = password;
+
+                          cacheData(resData1);
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => homeScreen()),
+                          );
                         }
                       },
                       child: Container(

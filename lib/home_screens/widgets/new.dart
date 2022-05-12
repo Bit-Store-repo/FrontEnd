@@ -121,6 +121,7 @@ class _addNewState extends State<addNew> {
                         builder: (context) => newEditFolder(
                               folderData: {},
                               type: 'New',
+                              traversal: widget.traversal,
                             )),
                   );
                 },

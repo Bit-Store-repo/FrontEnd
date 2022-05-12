@@ -126,21 +126,26 @@ class _foldersState extends State<folders> {
                         Expanded(
                             flex: 1,
                             child: InkWell(
-                                onTap: () => showMaterialModalBottomSheet(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20)),
-                                      ),
-                                      context: context,
-                                      builder: (context) => Stack(
-                                        children: <Widget>[
-                                          folderSettings(
-                                            folderData: data[index],
-                                          )
-                                        ],
-                                      ),
+                                onTap: () {
+                                  // push the index value to traversal
+                                  widget.traversal.add(index + 1);
+                                  showMaterialModalBottomSheet(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20)),
                                     ),
+                                    context: context,
+                                    builder: (context) => Stack(
+                                      children: <Widget>[
+                                        folderSettings(
+                                          folderData: data[index],
+                                          traversal: widget.traversal,
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
                                 child: ImageIcon(
                                   AssetImage("assets/icons/dots.png"),
                                   color: Color.fromRGBO(114, 207, 141, 1),

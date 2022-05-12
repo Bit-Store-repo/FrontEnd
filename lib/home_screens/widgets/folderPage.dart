@@ -18,13 +18,6 @@ class folderPage extends StatefulWidget {
 }
 
 class _folderPageState extends State<folderPage> {
-  // Map passwordData = {
-  //   'name' : 'Google accounts',
-  //   'about' : 'Lorem ipsum due siat yarem nilan mila rasester pras vaus Lorem ipsum due siat yarem nilan mila rasester pras vaus',
-  //   'email' : 'XYZ@gmail.com',
-  //   'password' : 'PassswordXYZ'
-  // };
-
   bool passwordVisible = false;
 
   @override
@@ -42,7 +35,6 @@ class _folderPageState extends State<folderPage> {
       }
     }
     ;
-    print(widget.traversal);
 
     return Scaffold(
       appBar: PreferredSize(
@@ -60,7 +52,6 @@ class _folderPageState extends State<folderPage> {
                   ElevatedButton(
                     onPressed: () {
                       widget.traversal.removeAt(widget.traversal.length - 1);
-                      print(widget.traversal);
                       Navigator.pop(context);
                     },
                     child: ImageIcon(AssetImage("assets/icons/back.png"),
@@ -179,41 +170,45 @@ class _folderPageState extends State<folderPage> {
                     SizedBox(
                       height: 25,
                     ),
-                    Text(
-                      'Passwords',
-                      style: TextStyle(
-                        fontFamily: 'gilroy',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                        color: Color.fromRGBO(77, 77, 77, 1),
+                    if (password.isNotEmpty) ...[
+                      Text(
+                        'Passwords',
+                        style: TextStyle(
+                          fontFamily: 'gilroy',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    passwords(
-                      passwordData: password,
-                      favourite: false,
-                    ),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    Text(
-                      'Folders',
-                      style: TextStyle(
-                        fontFamily: 'gilroy',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                        color: Color.fromRGBO(77, 77, 77, 1),
+                      SizedBox(
+                        height: 8,
                       ),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    folders(
-                      folderData: folder,
-                      traversal: widget.traversal,
-                    ),
+                      passwords(
+                        passwordData: password,
+                        traversal: widget.traversal,
+                      ),
+                      SizedBox(
+                        height: 25,
+                      ),
+                    ],
+                    if (folder.isNotEmpty) ...[
+                      Text(
+                        'Folders',
+                        style: TextStyle(
+                          fontFamily: 'gilroy',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      folders(
+                        folderData: folder,
+                        traversal: widget.traversal,
+                      ),
+                    ],
                   ],
                 ),
               ),

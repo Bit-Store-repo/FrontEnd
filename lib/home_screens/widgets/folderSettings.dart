@@ -2,8 +2,11 @@ import 'package:bit_store/home_screens/widgets/newEditFolder.dart';
 import 'package:flutter/material.dart';
 
 class folderSettings extends StatefulWidget {
-  const folderSettings({Key? key, required this.folderData}) : super(key: key);
+  const folderSettings(
+      {Key? key, required this.folderData, required this.traversal})
+      : super(key: key);
   final Map folderData;
+  final List traversal;
 
   @override
   _folderSettingsState createState() => _folderSettingsState();
@@ -31,7 +34,7 @@ class _folderSettingsState extends State<folderSettings> {
                   height: 30,
                 ),
                 Text(
-                  'Password Settings',
+                  'Folder Settings',
                   style: TextStyle(
                       fontFamily: 'gilroy',
                       fontWeight: FontWeight.w600,
@@ -49,6 +52,7 @@ class _folderSettingsState extends State<folderSettings> {
                           builder: (context) => newEditFolder(
                                 folderData: widget.folderData,
                                 type: 'Edit',
+                                traversal: widget.traversal,
                               )),
                     );
                   },

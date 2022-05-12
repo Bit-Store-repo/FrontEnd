@@ -26,19 +26,14 @@ class _login_screenState extends State<login_screen> {
     );
   }
 
-  Future<http.Response> putData(String key, dynamic value) async {
-    return http.post(
-      Uri.parse('http://localhost:3001/chain/add'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: json.encode(<String, String>{'key': key, 'data': value}),
-    );
-  }
-
   void cacheData(dynamic value) async {
     Box data = await Hive.openBox('passwordData');
     data.put('myData', value);
+  }
+
+  void cacheUserData(dynamic value) async {
+    Box data = await Hive.openBox('userData');
+    data.put('user', value);
   }
 
   Future<http.Response> getData(String key) async {
@@ -49,102 +44,6 @@ class _login_screenState extends State<login_screen> {
       },
     );
   }
-
-  List resData1 = [
-    'root',
-    '',
-    '',
-    {
-      'name': 'Amazon account 1',
-      'password': 'Amazon password',
-      'icon': 'amazon',
-      'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-    },
-    {
-      'name': 'Gmail',
-      'favourite': true,
-      'email': 'xyz@gmail.com',
-      'password': 'xyzXYZ123',
-      'icon': 'google',
-      'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-    },
-    [
-      'Cards',
-      'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-      'card',
-      {
-        'name': 'Amazon account 1',
-        'favourite': true,
-        'password': 'Amazon password',
-        'icon': 'amazon',
-        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-      },
-      {
-        'name': 'Gmail',
-        'favourite': true,
-        'email': 'xyz@gmail.com',
-        'password': 'xyzXYZ123',
-        'icon': 'google',
-        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-      },
-    ],
-    [
-      'Google Accounts',
-      'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-      'google',
-      {
-        'name': 'Firebase',
-        'password': 'Amazon password',
-        'icon': 'amazon',
-        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-      },
-      {
-        'name': 'Gmail',
-        'email': 'xyz@gmail.com',
-        'password': 'xyzXYZ123',
-        'icon': 'google',
-        'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-      },
-      [
-        'Cards',
-        'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-        'card',
-        {
-          'name': 'Amazon account 1',
-          'favourite': true,
-          'password': 'Amazon password',
-          'icon': 'amazon',
-          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-        },
-        {
-          'name': 'Gmail',
-          'favourite': true,
-          'email': 'xyz@gmail.com',
-          'password': 'xyzXYZ123',
-          'icon': 'google',
-          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-        },
-      ],
-      [
-        'Google sub folder',
-        'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum',
-        'google',
-        {
-          'name': 'Firebase',
-          'password': 'Amazon password',
-          'icon': 'amazon',
-          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-        },
-        {
-          'name': 'Gmail',
-          'email': 'xyz@gmail.com',
-          'password': 'xyzXYZ123',
-          'icon': 'google',
-          'about': 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum'
-        },
-      ],
-    ],
-  ];
 
   bool emailFlag = false;
   String errMsg = "";
@@ -350,7 +249,6 @@ class _login_screenState extends State<login_screen> {
                         http.Response passwordData = await getData(res['key']);
                         Map myData = json.decode(passwordData.body);
 
-                        final encThis = json.encode(resData1);
                         final key = encrypt.Key.fromUtf8(sha256
                             .convert(utf8.encode(password))
                             .toString()
@@ -365,33 +263,24 @@ class _login_screenState extends State<login_screen> {
                           return decrypted;
                         }
 
-                        // final encrypted = encrypter.encrypt(encThis, iv: iv);
-                        // String fromBase64 = encrypted.base64;
-
-                        // http.Response putInfo =
-                        //     await putData(res['key'], encrypted.base64);
-                        // List info = json.decode(putInfo.body);
-                        // print(info);
-
                         if (myData.containsKey('message')) {
+                          cacheUserData(res);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => homeScreen(
-                                      myData: [],
-                                    )),
+                                builder: (context) => homeScreen()),
                           );
                         } else {
                           String decrypted = decryptAES(myData['data']);
                           List decData = json.decode(decrypted);
+                          res['password'] = password;
                           cacheData(decData);
+                          cacheUserData(res);
 
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => homeScreen(
-                                      myData: decData,
-                                    )),
+                                builder: (context) => homeScreen()),
                           );
                         }
                       }
