@@ -22,6 +22,8 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+  _getRequests() async {}
+
   List findFavorites(data, favorites) {
     // print('recursion');
     for (int i = 3; i < data.length; i++) {

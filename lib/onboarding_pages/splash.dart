@@ -32,7 +32,6 @@ class _splashState extends State<splash> {
     Box user = await Hive.openBox('Login');
 
     var loggedIn = user.get('loggedIn');
-    print(loggedIn);
 
     if (loggedIn == null || loggedIn == 'false') {
       // user.put('loggedIn', 'true');

@@ -3,8 +3,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 
-import '../homeScreen.dart';
-
 class newEditPassword extends StatefulWidget {
   const newEditPassword(
       {Key? key,
@@ -47,6 +45,8 @@ class _newEditPasswordState extends State<newEditPassword> {
     }
   }
 
+  bool flag = true;
+
   @override
   Widget build(BuildContext context) {
     getCache();
@@ -66,14 +66,16 @@ class _newEditPasswordState extends State<newEditPassword> {
       'Free',
       'Four',
     ];
-
     if (widget.type == 'Edit') {
-      nameController.text = widget.passwordData['name'];
-      aboutController.text = widget.passwordData['about'];
-      if (widget.passwordData.containsKey('email')) {
-        emailController.text = widget.passwordData['email'];
+      if (flag) {
+        flag = false;
+        nameController.text = widget.passwordData['name'];
+        aboutController.text = widget.passwordData['about'];
+        if (widget.passwordData.containsKey('email')) {
+          emailController.text = widget.passwordData['email'];
+        }
+        passwordController.text = widget.passwordData['password'];
       }
-      passwordController.text = widget.passwordData['password'];
     }
 
     return Scaffold(
@@ -453,7 +455,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                     String email = emailController.text;
 
                                     var uuid = Uuid();
-                                    var uid = uuid.v4();
+                                    var uid = uuid.v4().substring(0, 17);
                                     setState(() {
                                       nameController.text = name;
                                       aboutController.text = about;
@@ -524,7 +526,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                           List tempArray = resData1;
                           for (int i = 0; i < widget.traversal.length; i++) {
                             tempArray = tempArray[
-                                getIndex(resData1, widget.traversal[i])];
+                                getIndex(tempArray, widget.traversal[i])];
                           }
                           tempArray.add(newPassword);
                           cacheData(resData1);
@@ -551,7 +553,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                           List tempArray = resData1;
                           for (int i = 0; i < widget.traversal.length; i++) {
                             tempArray = tempArray[
-                                getIndex(resData1, widget.traversal[i])];
+                                getIndex(tempArray, widget.traversal[i])];
                           }
 
                           Map tempMap = {};
@@ -575,11 +577,8 @@ class _newEditPasswordState extends State<newEditPassword> {
                           cacheData(resData1);
                           print(resData1);
 
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => homeScreen()),
-                          );
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "home", (r) => false);
                         }
                       },
                       child: Container(

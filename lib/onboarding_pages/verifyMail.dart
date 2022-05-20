@@ -187,95 +187,102 @@ class _verifyMailState extends State<verifyMail> {
                 SizedBox(
                   height: 10,
                 ),
-                InkWell(
-                  onTap: () async {
-                    String otp = otpController.text;
+                if (wrongOtp == false) ...[
+                  InkWell(
+                    onTap: () async {
+                      String otp = otpController.text;
 
-                    if (otp.isEmpty || otp.length < 6) {
-                      setState(() {
-                        wrongOtp = true;
-                        errMsg = "Wrong OTP";
-                      });
-                    } else {
-                      http.Response response =
-                          await verify(otp, widget.emailData['email']);
-                      Map res = json.decode(response.body);
-
-                      if (!res.containsKey("message")) {
-                        cacheUserData(res);
-                        if (widget.type == "login") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => homeScreen()),
-                          );
-                        }
-                        if (widget.type == "edit") {
-                          Navigator.pop(context);
-                        }
-                      } else {
+                      if (otp.isEmpty || otp.length < 6) {
                         setState(() {
                           wrongOtp = true;
-                          errMsg = res['message'];
+                          errMsg = "Wrong OTP";
                         });
+                      } else {
+                        http.Response response =
+                            await verify(otp, widget.emailData['email']);
+                        Map res = json.decode(response.body);
+
+                        if (!res.containsKey("message")) {
+                          cacheUserData(res);
+                          if (widget.type == "login") {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => homeScreen()),
+                            );
+                          }
+                          if (widget.type == "edit") {
+                            Navigator.pop(context);
+                          }
+                        } else {
+                          setState(() {
+                            wrongOtp = true;
+                            errMsg = res['message'];
+                          });
+                        }
                       }
-                    }
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromRGBO(180, 231, 229, 1),
-                          Color.fromRGBO(180, 248, 200, 1)
-                        ],
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 2),
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromRGBO(180, 231, 229, 1),
+                            Color.fromRGBO(180, 248, 200, 1)
+                          ],
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 10),
-                      child: Center(
-                        child: Text(
-                          'Confirm',
-                          style: TextStyle(
-                            fontFamily: 'gilroy',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 24,
-                            color: Color.fromRGBO(22, 22, 22, 1),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 10),
+                        child: Center(
+                          child: Text(
+                            'Confirm',
+                            style: TextStyle(
+                              fontFamily: 'gilroy',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 24,
+                              color: Color.fromRGBO(22, 22, 22, 1),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                ],
                 if (wrongOtp == true) ...[
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromRGBO(223, 109, 114, 1),
-                          Color.fromRGBO(223, 155, 200, 1)
-                        ],
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white, width: 2),
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromRGBO(223, 109, 114, 1),
+                            Color.fromRGBO(223, 155, 200, 1)
+                          ],
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20.0, 15, 20, 10),
-                      child: Center(
-                        child: Text(
-                          'Wrong OTP',
-                          style: TextStyle(
-                            fontFamily: 'gilroy',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 24,
-                            color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(20.0, 15, 20, 10),
+                        child: Center(
+                          child: Text(
+                            'Go Back',
+                            style: TextStyle(
+                              fontFamily: 'gilroy',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 24,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

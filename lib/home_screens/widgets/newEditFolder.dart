@@ -341,6 +341,7 @@ class _newEditFolderState extends State<newEditFolder> {
                           int getIndex(List alist, int index) {
                             int counter = 0;
                             for (int i = 0; i < alist.length; i++) {
+                              print(i);
                               if (alist[i].runtimeType == List<dynamic>) {
                                 counter += 1;
                               }
@@ -353,8 +354,10 @@ class _newEditFolderState extends State<newEditFolder> {
 
                           List tempArray = resData1;
                           for (int i = 0; i < widget.traversal.length; i++) {
+                            print(tempArray);
+                            print(widget.traversal[i]);
                             tempArray = tempArray[
-                                getIndex(resData1, widget.traversal[i])];
+                                getIndex(tempArray, widget.traversal[i])];
                           }
                           tempArray.add(newFolder);
                           print(resData1);
@@ -386,7 +389,7 @@ class _newEditFolderState extends State<newEditFolder> {
                           List tempArray = resData1;
                           for (int i = 0; i < widget.traversal.length; i++) {
                             tempArray = tempArray[
-                                getIndex(resData1, widget.traversal[i])];
+                                getIndex(tempArray, widget.traversal[i])];
                           }
                           tempArray[0] = name;
                           tempArray[1] = about;
@@ -396,11 +399,8 @@ class _newEditFolderState extends State<newEditFolder> {
 
                           cacheData(resData1);
 
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => homeScreen()),
-                          );
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "home", (r) => false);
                         }
                       },
                       child: Container(
