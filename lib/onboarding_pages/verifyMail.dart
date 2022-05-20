@@ -2,12 +2,16 @@ import 'dart:convert';
 
 import 'package:bit_store/home_screens/homeScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class verifyMail extends StatefulWidget {
-  const verifyMail({Key? key, required this.emailData}) : super(key: key);
+  const verifyMail({Key? key, required this.emailData, required this.type})
+      : super(key: key);
 
   final Map emailData;
+  final String type;
 
   @override
   _verifyMailState createState() => _verifyMailState();
@@ -34,6 +38,11 @@ class _verifyMailState extends State<verifyMail> {
     );
   }
 
+  void cacheUserData(dynamic value) async {
+    Box data = await Hive.openBox('userData');
+    data.put('user', value);
+  }
+
   @override
   Widget build(BuildContext context) {
     String email = widget.emailData['email'];
@@ -53,7 +62,24 @@ class _verifyMailState extends State<verifyMail> {
             child: Column(
               children: [
                 Row(
-                  children: [Image.asset('assets/logo.png')],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset('assets/logo.png'),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: ImageIcon(AssetImage("assets/icons/back.png"),
+                          color: Colors.white),
+                      style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          primary:
+                              Color.fromRGBO(77, 77, 77, 1), // <-- Button color
+                          onPrimary:
+                              Color.fromRGBO(77, 77, 77, 1), // <-- Splash color
+                          elevation: 8),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 80,
@@ -175,11 +201,18 @@ class _verifyMailState extends State<verifyMail> {
                           await verify(otp, widget.emailData['email']);
                       Map res = json.decode(response.body);
 
-                      if (res['message'] == "email verified") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => homeScreen()),
-                        );
+                      if (!res.containsKey("message")) {
+                        cacheUserData(res);
+                        if (widget.type == "login") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => homeScreen()),
+                          );
+                        }
+                        if (widget.type == "edit") {
+                          Navigator.pop(context);
+                        }
                       } else {
                         setState(() {
                           wrongOtp = true;
@@ -218,37 +251,37 @@ class _verifyMailState extends State<verifyMail> {
                     ),
                   ),
                 ),
-                // if (wrongOtp == true) ...[
-                //   Container(
-                //     width: double.infinity,
-                //     decoration: BoxDecoration(
-                //       border: Border.all(color: Colors.white, width: 2),
-                //       borderRadius: BorderRadius.circular(20),
-                //       gradient: LinearGradient(
-                //         colors: [
-                //           Color.fromRGBO(223, 109, 114, 1),
-                //           Color.fromRGBO(223, 155, 200, 1)
-                //         ],
-                //         begin: Alignment.bottomLeft,
-                //         end: Alignment.topRight,
-                //       ),
-                //     ),
-                //     child: Padding(
-                //       padding: const EdgeInsets.fromLTRB(20.0, 15, 20, 10),
-                //       child: Center(
-                //         child: Text(
-                //           'Wrong OTP',
-                //           style: TextStyle(
-                //             fontFamily: 'gilroy',
-                //             fontWeight: FontWeight.w600,
-                //             fontSize: 24,
-                //             color: Colors.white,
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ],
+                if (wrongOtp == true) ...[
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 2),
+                      borderRadius: BorderRadius.circular(20),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromRGBO(223, 109, 114, 1),
+                          Color.fromRGBO(223, 155, 200, 1)
+                        ],
+                        begin: Alignment.bottomLeft,
+                        end: Alignment.topRight,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20.0, 15, 20, 10),
+                      child: Center(
+                        child: Text(
+                          'Wrong OTP',
+                          style: TextStyle(
+                            fontFamily: 'gilroy',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 24,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
                 SizedBox(
                   height: 20,
                 ),

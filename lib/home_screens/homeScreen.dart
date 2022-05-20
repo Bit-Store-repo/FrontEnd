@@ -22,9 +22,6 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
-  String imageUrl =
-      'https://storage.googleapis.com/download/storage/v1/b/edumilieu-3b218.appspot.com/o/cf85a769-6e44-4c9e-a462-cec00eed51f0.png?generation=1650383943652227&alt=media';
-
   List findFavorites(data, favorites) {
     // print('recursion');
     for (int i = 3; i < data.length; i++) {
@@ -42,14 +39,21 @@ class _homeScreenState extends State<homeScreen> {
 
   List resData = [];
   Map userData = {};
+  String passwordOnly = "";
+  String imageUrl =
+      "https://www.icmetl.org/wp-content/uploads/2020/11/user-icon-human-person-sign-vector-10206693.png";
 
   void getCache() async {
     Box passwordData = await Hive.openBox('passwordData');
     Box user = await Hive.openBox('userData');
+    Box password = await Hive.openBox('userPassword');
     if (resData.isEmpty) {
       setState(() {
         resData = passwordData.get('myData');
         userData = user.get('user');
+        passwordOnly = password.get('password');
+        print(userData['profPic']);
+        imageUrl = userData['profPic'];
       });
     }
   }
@@ -76,7 +80,6 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     getCache();
-    print(userData);
 
     List password = [];
     List folder = [];
@@ -90,6 +93,18 @@ class _homeScreenState extends State<homeScreen> {
     }
     ;
     List favorites = findFavorites(resData, []);
+
+    // print('------------------');
+    // print('------------------');
+    // print(folder);
+    // print('------------------');
+    // print(password);
+    // print('------------------');
+    // print('------------------');
+    // print(resData);
+    // print('------------------');
+    // print('------------------');
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(75.0),
@@ -114,7 +129,7 @@ class _homeScreenState extends State<homeScreen> {
                       ElevatedButton(
                         onPressed: () async {
                           http.Response putInfo = await putData(
-                              userData['key'], resData, userData['password']);
+                              userData['key'], resData, passwordOnly);
                           List info = json.decode(putInfo.body);
                         },
                         child: ImageIcon(AssetImage("assets/icons/forward.png"),

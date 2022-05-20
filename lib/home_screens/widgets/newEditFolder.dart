@@ -89,7 +89,7 @@ class _newEditFolderState extends State<newEditFolder> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      widget.traversal.removeAt(widget.traversal.length - 1);
+                      // widget.traversal.removeAt(widget.traversal.length - 1);
                       Navigator.pop(context);
                     },
                     child: ImageIcon(AssetImage("assets/icons/back.png"),

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:bit_store/onboarding_pages/verifyMail.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class register extends StatefulWidget {
@@ -35,6 +37,11 @@ class _registerState extends State<register> {
       },
       body: json.encode(<String, String>{'email': email}),
     );
+  }
+
+  void cacheData(dynamic value) async {
+    Box data = await Hive.openBox('passwordData');
+    data.put('myData', value);
   }
 
   @override
@@ -202,7 +209,7 @@ class _registerState extends State<register> {
                         errMsg = "Email cannot be empty";
                       });
                     } else if (email.contains("@") == false ||
-                        email.contains(".com") == false) {
+                        email.contains(".") == false) {
                       setState(() {
                         emailController.text = email;
                         passwordController.text = password;
@@ -233,12 +240,14 @@ class _registerState extends State<register> {
                         });
                       } else {
                         await verify(email);
-
+                        List root = ['root', '', ''];
+                        cacheData(root);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => verifyMail(
                                     emailData: res,
+                                    type: "login",
                                   )),
                         );
                       }

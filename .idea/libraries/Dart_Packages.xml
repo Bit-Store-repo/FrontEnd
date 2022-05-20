@@ -86,6 +86,13 @@
             </list>
           </value>
         </entry>
+        <entry key="cross_file">
+          <value>
+            <list>
+              <option value="/opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/cross_file-0.3.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="crypto">
           <value>
             <list>
@@ -149,6 +156,13 @@
             </list>
           </value>
         </entry>
+        <entry key="flutter_plugin_android_lifecycle">
+          <value>
+            <list>
+              <option value="/opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.6/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="flutter_test">
           <value>
             <list>
@@ -181,6 +195,20 @@
           <value>
             <list>
               <option value="/opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="image_picker">
+          <value>
+            <list>
+              <option value="/opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.7.2+1/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="image_picker_platform_interface">
+          <value>
+            <list>
+              <option value="/opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-2.5.0/lib" />
             </list>
           </value>
         </entry>
@@ -486,6 +514,7 @@
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/clock-1.1.0/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.15.0/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/convert-3.0.1/lib" />
+      <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/cross_file-0.3.3/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.2/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/encrypt-5.0.1/lib" />
@@ -494,10 +523,13 @@
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/file-6.1.2/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/fixnum-1.0.0/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4/lib" />
+      <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.6/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/hive-2.1.0/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/hive_flutter-1.1.0/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/lib" />
+      <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.7.2+1/lib" />
+      <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-2.5.0/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.5.0/lib" />
       <root url="file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1/lib" />

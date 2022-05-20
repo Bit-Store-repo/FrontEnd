@@ -22,10 +22,9 @@ class _splashState extends State<splash> {
   void firstTime() async {
     Box firstTimeUser = await Hive.openBox('FirstTime');
     var firstTime = firstTimeUser.get('firstTime');
-
     if (firstTime == null) {
       firstTimeUser.put('firstTime', 'false');
-      Navigator.pushReplacementNamed(context, 'swipe_screen');
+      Navigator.pushReplacementNamed(context, 'login');
     }
   }
 
@@ -33,9 +32,9 @@ class _splashState extends State<splash> {
     Box user = await Hive.openBox('Login');
 
     var loggedIn = user.get('loggedIn');
-    // print(loggedIn);
+    print(loggedIn);
 
-    if (loggedIn == null) {
+    if (loggedIn == null || loggedIn == 'false') {
       // user.put('loggedIn', 'true');
       Navigator.pushReplacementNamed(context, 'login');
     } else {

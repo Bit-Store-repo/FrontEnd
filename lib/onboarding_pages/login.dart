@@ -26,14 +26,22 @@ class _login_screenState extends State<login_screen> {
     );
   }
 
+  void loginRouter() async {
+    Box user = await Hive.openBox('Login');
+
+    user.put('loggedIn', 'true');
+  }
+
   void cacheData(dynamic value) async {
     Box data = await Hive.openBox('passwordData');
     data.put('myData', value);
   }
 
-  void cacheUserData(dynamic value) async {
+  void cacheUserData(dynamic value, String pass) async {
     Box data = await Hive.openBox('userData');
+    Box password = await Hive.openBox('userPassword');
     data.put('user', value);
+    password.put('password', pass);
   }
 
   Future<http.Response> getData(String key) async {
@@ -216,7 +224,7 @@ class _login_screenState extends State<login_screen> {
                         errMsg = "Email cannot be empty";
                       });
                     } else if (email.contains("@") == false ||
-                        email.contains(".com") == false) {
+                        email.contains(".") == false) {
                       setState(() {
                         emailController.text = email;
                         passwordController.text = password;
@@ -264,7 +272,10 @@ class _login_screenState extends State<login_screen> {
                         }
 
                         if (myData.containsKey('message')) {
-                          cacheUserData(res);
+                          List root = ['root', '', ''];
+                          cacheData(root);
+                          loginRouter();
+                          cacheUserData(res, password);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -273,10 +284,9 @@ class _login_screenState extends State<login_screen> {
                         } else {
                           String decrypted = decryptAES(myData['data']);
                           List decData = json.decode(decrypted);
-                          res['password'] = password;
                           cacheData(decData);
-                          cacheUserData(res);
-
+                          cacheUserData(res, password);
+                          loginRouter();
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

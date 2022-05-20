@@ -529,11 +529,8 @@ class _newEditPasswordState extends State<newEditPassword> {
                           tempArray.add(newPassword);
                           cacheData(resData1);
 
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => homeScreen()),
-                          );
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "home", (r) => false);
                         }
                         if (type == "Edit") {
                           // function that gets the index of that traversal
@@ -576,6 +573,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                           tempMap['password'] = password;
 
                           cacheData(resData1);
+                          print(resData1);
 
                           Navigator.pushReplacement(
                             context,
