@@ -39,12 +39,13 @@ class _account_landingState extends State<account_landing> {
   }
 
   Future<http.Response> logout(String user_id) async {
-    return http.get(Uri.parse('http://localhost:3000/logout/${user_id}'));
+    return http.get(
+        Uri.parse('https://bit-store-backend.herokuapp.com/logout/${user_id}'));
   }
 
   Future<http.Response> verify(String email) async {
     return http.post(
-      Uri.parse('http://localhost:3000/user/verify'),
+      Uri.parse('https://bit-store-backend.herokuapp.com/user/verify'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

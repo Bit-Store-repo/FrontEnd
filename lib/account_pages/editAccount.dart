@@ -54,7 +54,7 @@ class _edit_accountState extends State<edit_account> {
 
   Future<http.Response> editUsername(String username, String email) async {
     return http.patch(
-      Uri.parse('http://localhost:3000/user/username'),
+      Uri.parse('https://bit-store-backend.herokuapp.com/user/username'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -64,8 +64,8 @@ class _edit_accountState extends State<edit_account> {
 
   Future<Map<String, dynamic>> uploadImage(String email, File ppic) async {
     //create multipart request for POST or PATCH method
-    var request = http.MultipartRequest(
-        "PATCH", Uri.parse("http://localhost:3000/user/profilepic"));
+    var request = http.MultipartRequest("PATCH",
+        Uri.parse("https://bit-store-backend.herokuapp.com/user/profilepic"));
     //add text fields
     request.fields["email"] = email;
     //create multipart using filepath, string or bytes

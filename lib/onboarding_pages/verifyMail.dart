@@ -30,7 +30,7 @@ class _verifyMailState extends State<verifyMail> {
 
   Future<http.Response> verify(String otp, String email) async {
     return http.patch(
-      Uri.parse('http://localhost:3000/user/verify'),
+      Uri.parse('https://bit-store-backend.herokuapp.com/user/verify'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

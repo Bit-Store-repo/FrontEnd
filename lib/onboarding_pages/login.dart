@@ -18,7 +18,7 @@ class login_screen extends StatefulWidget {
 class _login_screenState extends State<login_screen> {
   Future<http.Response> login(String email, String password) async {
     return http.post(
-      Uri.parse('http://localhost:3000/login'),
+      Uri.parse('https://bit-store-backend.herokuapp.com/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

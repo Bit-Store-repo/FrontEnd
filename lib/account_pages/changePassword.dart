@@ -24,7 +24,7 @@ class _changePasswordState extends State<changePassword> {
   Future<http.Response> changePassword(
       String email, String key, password) async {
     return http.patch(
-      Uri.parse('http://localhost:3000/user/password'),
+      Uri.parse('https://bit-store-backend.herokuapp.com/user/password'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

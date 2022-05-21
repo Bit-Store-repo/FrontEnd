@@ -19,7 +19,7 @@ class _changeMailState extends State<changeMail> {
   Future<http.Response> changeEmail(
       String email, String newEmail, String key) async {
     return http.patch(
-      Uri.parse('http://localhost:3000/user/mail'),
+      Uri.parse('https://bit-store-backend.herokuapp.com/user/mail'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

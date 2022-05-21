@@ -24,7 +24,7 @@ class _checkPasswordState extends State<checkPassword> {
 
   Future<http.Response> check(String email, String password) async {
     return http.post(
-      Uri.parse('http://localhost:3000/user/checkpassword'),
+      Uri.parse('https://bit-store-backend.herokuapp.com/user/checkpassword'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

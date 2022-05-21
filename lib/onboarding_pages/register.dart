@@ -21,7 +21,7 @@ class _registerState extends State<register> {
 
   Future<http.Response> register(String email, String password) async {
     return http.post(
-      Uri.parse('http://localhost:3000/signup'),
+      Uri.parse('https://bit-store-backend.herokuapp.com/signup'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -31,7 +31,7 @@ class _registerState extends State<register> {
 
   Future<http.Response> verify(String email) async {
     return http.post(
-      Uri.parse('http://localhost:3000/user/verify'),
+      Uri.parse('https://bit-store-backend.herokuapp.com/user/verify'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

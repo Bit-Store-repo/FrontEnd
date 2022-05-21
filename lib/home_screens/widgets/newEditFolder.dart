@@ -1,4 +1,3 @@
-import 'package:bit_store/home_screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -365,11 +364,8 @@ class _newEditFolderState extends State<newEditFolder> {
                           print(tempArray);
                           cacheData(resData1);
 
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => homeScreen()),
-                          );
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, "home", (r) => false);
                         } else if (widget.type == "Edit") {
                           // function that gets the index of that traversal
                           // array from the data
