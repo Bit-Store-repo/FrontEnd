@@ -73,9 +73,11 @@ class _registerState extends State<register> {
     data.put('myData', value);
   }
 
-  void cacheUserData(dynamic value) async {
+  void cacheUserData(dynamic value, String pass) async {
     Box data = await Hive.openBox('userData');
+    Box password = await Hive.openBox('userPassword');
     data.put('user', value);
+    password.put('password', pass);
   }
 
   @override
@@ -279,7 +281,7 @@ class _registerState extends State<register> {
                         Navigator.pop(context);
                         List root = ['root', '', ''];
                         cacheData(root);
-                        cacheUserData(res);
+                        cacheUserData(res, password);
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => homeScreen()),

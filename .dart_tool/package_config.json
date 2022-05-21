@@ -140,12 +140,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "flutter_spinkit",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-5.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "flutter_test",
       "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -440,7 +434,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-05-21T13:37:32.795014Z",
+  "generated": "2022-05-21T15:46:36.305669Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

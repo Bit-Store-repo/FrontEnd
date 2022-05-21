@@ -611,6 +611,7 @@ class _account_landingState extends State<account_landing> {
                                 context, '/', (route) => false);
                           } else {
                             Navigator.pop(context);
+                            print(res['message']);
                           }
                         },
                         child: Container(

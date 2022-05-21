@@ -1,4 +1,3 @@
-import 'package:bit_store/home_screens/homeScreen.dart';
 import 'package:bit_store/home_screens/widgets/newEditPassword.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -77,10 +76,8 @@ class _passwordSettingsState extends State<passwordSettings> {
                     onTap: () {
                       widget.passwordData.remove('favourite');
                       cacheData(resData1);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => homeScreen()),
-                      );
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, "home", (r) => false);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -140,10 +137,8 @@ class _passwordSettingsState extends State<passwordSettings> {
                     onTap: () {
                       widget.passwordData['favourite'] = true;
                       cacheData(resData1);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => homeScreen()),
-                      );
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, "home", (r) => false);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
