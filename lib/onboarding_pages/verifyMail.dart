@@ -43,6 +43,35 @@ class _verifyMailState extends State<verifyMail> {
     data.put('user', value);
   }
 
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    // new Future.delayed(new Duration(seconds: 2), () {
+    //   Navigator.pop(context);
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     String email = widget.emailData['email'];
@@ -198,9 +227,13 @@ class _verifyMailState extends State<verifyMail> {
                           errMsg = "Wrong OTP";
                         });
                       } else {
+                        _onLoading();
+
                         http.Response response =
                             await verify(otp, widget.emailData['email']);
                         Map res = json.decode(response.body);
+
+                        Navigator.pop(context);
 
                         if (!res.containsKey("message")) {
                           cacheUserData(res);

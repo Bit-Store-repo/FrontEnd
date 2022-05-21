@@ -47,6 +47,32 @@ class _edit_accountState extends State<edit_account> {
 
   final ImagePicker _picker = ImagePicker();
 
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void cacheUserData(dynamic value) async {
     Box data = await Hive.openBox('userData');
     data.put('user', value);
@@ -167,6 +193,7 @@ class _edit_accountState extends State<edit_account> {
                             alignment: Alignment.bottomRight,
                             child: ElevatedButton(
                               onPressed: () async {
+                                _onLoading();
                                 // Pick an image
                                 PickedFile? pickedFile =
                                     await ImagePicker().getImage(
@@ -180,6 +207,10 @@ class _edit_accountState extends State<edit_account> {
                                       await uploadImage(email, imageFile);
                                   cacheUserData(res);
                                 }
+                                Navigator.pop(context);
+                                setState(() {
+                                  userData = {};
+                                });
                               },
                               child: ImageIcon(
                                   AssetImage("assets/icons/editBig.png"),
@@ -309,6 +340,7 @@ class _edit_accountState extends State<edit_account> {
                                       if (edit_userName == true) ...[
                                         ElevatedButton(
                                           onPressed: () async {
+                                            _onLoading();
                                             String username =
                                                 usernameController.text;
 
@@ -316,11 +348,11 @@ class _edit_accountState extends State<edit_account> {
                                                 await editUsername(
                                                     username, email);
                                             Map myData = json.decode(data.body);
-                                            print(myData);
 
                                             if (!myData
                                                 .containsKey("message")) {
                                               cacheUserData(myData);
+                                              Navigator.pop(context);
 
                                               setState(() {
                                                 edit_userName = false;
@@ -473,71 +505,71 @@ class _edit_accountState extends State<edit_account> {
                       height: 15,
                     ),
 
-                    if (status == 'not_verified') ...[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                        child: InkWell(
-                          onTap: () {},
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white, width: 2),
-                              borderRadius: BorderRadius.circular(20),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromRGBO(180, 231, 229, 1),
-                                  Color.fromRGBO(180, 248, 200, 1)
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                            ),
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20.0, 15, 20, 15),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                        flex: 1,
-                                        child: ImageIcon(
-                                          AssetImage("assets/icons/mail.png"),
-                                          color: Color.fromRGBO(77, 77, 77, 1),
-                                        )),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Expanded(
-                                      flex: 8,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Verify Email',
-                                            style: TextStyle(
-                                              fontFamily: 'gilroy',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(27, 27, 27, 1),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                        flex: 1,
-                                        child: ImageIcon(
-                                          AssetImage(
-                                              "assets/icons/forward.png"),
-                                          color: Color.fromRGBO(77, 77, 77, 1),
-                                        )),
-                                  ],
-                                )),
-                          ),
-                        ),
-                      ),
-                    ],
+                    // if (status == 'not_verified') ...[
+                    //   Padding(
+                    //     padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                    //     child: InkWell(
+                    //       onTap: () {},
+                    //       child: Container(
+                    //         decoration: BoxDecoration(
+                    //           border: Border.all(color: Colors.white, width: 2),
+                    //           borderRadius: BorderRadius.circular(20),
+                    //           gradient: LinearGradient(
+                    //             colors: [
+                    //               Color.fromRGBO(180, 231, 229, 1),
+                    //               Color.fromRGBO(180, 248, 200, 1)
+                    //             ],
+                    //             begin: Alignment.topLeft,
+                    //             end: Alignment.bottomRight,
+                    //           ),
+                    //         ),
+                    //         child: Padding(
+                    //             padding:
+                    //                 const EdgeInsets.fromLTRB(20.0, 15, 20, 15),
+                    //             child: Row(
+                    //               mainAxisAlignment: MainAxisAlignment.start,
+                    //               children: [
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: ImageIcon(
+                    //                       AssetImage("assets/icons/mail.png"),
+                    //                       color: Color.fromRGBO(77, 77, 77, 1),
+                    //                     )),
+                    //                 SizedBox(
+                    //                   width: 20,
+                    //                 ),
+                    //                 Expanded(
+                    //                   flex: 8,
+                    //                   child: Column(
+                    //                     crossAxisAlignment:
+                    //                         CrossAxisAlignment.start,
+                    //                     children: [
+                    //                       Text(
+                    //                         'Verify Email',
+                    //                         style: TextStyle(
+                    //                           fontFamily: 'gilroy',
+                    //                           fontWeight: FontWeight.w500,
+                    //                           fontSize: 16,
+                    //                           color:
+                    //                               Color.fromRGBO(27, 27, 27, 1),
+                    //                         ),
+                    //                       ),
+                    //                     ],
+                    //                   ),
+                    //                 ),
+                    //                 Expanded(
+                    //                     flex: 1,
+                    //                     child: ImageIcon(
+                    //                       AssetImage(
+                    //                           "assets/icons/forward.png"),
+                    //                       color: Color.fromRGBO(77, 77, 77, 1),
+                    //                     )),
+                    //               ],
+                    //             )),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ],
 
                     SizedBox(
                       height: 25,

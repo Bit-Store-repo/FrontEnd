@@ -46,9 +46,35 @@ class _login_screenState extends State<login_screen> {
 
   Future<http.Response> getData(String key) async {
     return http.get(
-      Uri.parse('http://localhost:3001/chain/${key}'),
+      Uri.parse('https://bit-store-blockchain.herokuapp.com/chain/${key}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+  }
+
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+                ),
+              ],
+            ),
+          ),
+        );
       },
     );
   }
@@ -243,10 +269,14 @@ class _login_screenState extends State<login_screen> {
                         }
                       });
                     } else {
+                      // put the loading screen
+                      _onLoading();
+
                       http.Response response = await login(email, password);
                       Map res = json.decode(response.body);
 
                       if (res.containsKey('message')) {
+                        Navigator.pop(context);
                         setState(() {
                           emailController.text = email;
                           passwordController.text = password;
@@ -276,6 +306,7 @@ class _login_screenState extends State<login_screen> {
                           cacheData(root);
                           loginRouter();
                           cacheUserData(res, password);
+                          Navigator.pop(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -287,6 +318,7 @@ class _login_screenState extends State<login_screen> {
                           cacheData(decData);
                           cacheUserData(res, password);
                           loginRouter();
+                          Navigator.pop(context);
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

@@ -90,6 +90,10 @@ flutter_plugin_android_lifecycle
 2.12
 file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.6/
 file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.6/lib/
+flutter_spinkit
+2.12
+file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-5.1.0/
+file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_spinkit-5.1.0/lib/
 hive
 2.12
 file:///opt/homebrew/Caskroom/flutter/2.8.1/flutter/.pub-cache/hosted/pub.dartlang.org/hive-2.1.0/

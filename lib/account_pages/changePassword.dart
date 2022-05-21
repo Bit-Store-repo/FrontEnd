@@ -33,6 +33,32 @@ class _changePasswordState extends State<changePassword> {
     );
   }
 
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void cacheUserData(dynamic value) async {
     Box data = await Hive.openBox('userData');
     data.put('user', value);
@@ -262,9 +288,13 @@ class _changePasswordState extends State<changePassword> {
                           }
                         });
                       } else {
+                        _onLoading();
                         http.Response response = await changePassword(
                             widget.email, widget.changeKey, password);
                         Map res = json.decode(response.body);
+
+                        Navigator.pop(context);
+
                         if (!res.containsKey("message")) {
                           cacheUserData(res);
                           Navigator.pushNamedAndRemoveUntil(

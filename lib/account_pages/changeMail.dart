@@ -33,6 +33,32 @@ class _changeMailState extends State<changeMail> {
     data.put('user', value);
   }
 
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   TextEditingController mailController = TextEditingController();
   TextEditingController newMailController = TextEditingController();
   String errMsg = "";
@@ -262,9 +288,13 @@ class _changeMailState extends State<changeMail> {
                         errMsg = "Invalid Email";
                       });
                     } else {
+                      _onLoading();
+
                       http.Response response = await changeEmail(
                           widget.email, email, widget.changeKey);
                       Map res = json.decode(response.body);
+
+                      Navigator.pop(context);
 
                       if (!res.containsKey("message")) {
                         cacheUserData(res);

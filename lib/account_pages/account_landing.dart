@@ -71,6 +71,32 @@ class _account_landingState extends State<account_landing> {
     password.put('password', null);
   }
 
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     getCache();
@@ -310,7 +336,9 @@ class _account_landingState extends State<account_landing> {
                         padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         child: InkWell(
                           onTap: () async {
+                            _onLoading();
                             await verify(email);
+                            Navigator.pop(context);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -318,7 +346,11 @@ class _account_landingState extends State<account_landing> {
                                         emailData: userData,
                                         type: "edit",
                                       )),
-                            );
+                            ).then((_) {
+                              setState(() {
+                                userData = {};
+                              });
+                            });
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -401,7 +433,11 @@ class _account_landingState extends State<account_landing> {
                               builder: (context) => Stack(
                                 children: <Widget>[edit_account()],
                               ),
-                            ),
+                            ).then((_) {
+                              setState(() {
+                                userData = {};
+                              });
+                            }),
                             child: Container(
                               decoration: BoxDecoration(
                                 border:
@@ -562,6 +598,7 @@ class _account_landingState extends State<account_landing> {
                       padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: InkWell(
                         onTap: () async {
+                          _onLoading();
                           http.Response response =
                               await logout(userData['_id']);
                           Map res = json.decode(response.body);
@@ -569,8 +606,11 @@ class _account_landingState extends State<account_landing> {
                             logoutRouter();
                             delData();
                             delUserData();
+                            Navigator.pop(context);
                             Navigator.pushNamedAndRemoveUntil(
                                 context, '/', (route) => false);
+                          } else {
+                            Navigator.pop(context);
                           }
                         },
                         child: Container(

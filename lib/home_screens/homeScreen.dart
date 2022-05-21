@@ -60,6 +60,32 @@ class _homeScreenState extends State<homeScreen> {
     }
   }
 
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Future<http.Response> putData(
       String pKey, dynamic value, String password) async {
     final key = encrypt.Key.fromUtf8(
@@ -69,7 +95,7 @@ class _homeScreenState extends State<homeScreen> {
     final encrypted = encrypter.encrypt(json.encode(value), iv: iv).base64;
 
     return http.post(
-      Uri.parse('http://localhost:3001/chain/add'),
+      Uri.parse('https://bit-store-blockchain.herokuapp.com/chain/add'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -130,9 +156,11 @@ class _homeScreenState extends State<homeScreen> {
                     children: [
                       ElevatedButton(
                         onPressed: () async {
+                          _onLoading();
                           http.Response putInfo = await putData(
                               userData['key'], resData, passwordOnly);
                           List info = json.decode(putInfo.body);
+                          Navigator.pop(context);
                         },
                         child: ImageIcon(AssetImage("assets/icons/forward.png"),
                             color: Colors.white),
@@ -184,7 +212,11 @@ class _homeScreenState extends State<homeScreen> {
                           builder: (context) => Stack(
                             children: <Widget>[account_landing()],
                           ),
-                        ),
+                        ).then((_) {
+                          setState(() {
+                            resData = [];
+                          });
+                        }),
                         child: Container(
                           height: 50,
                           width: 50,

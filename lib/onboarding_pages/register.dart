@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bit_store/onboarding_pages/verifyMail.dart';
+import 'package:bit_store/home_screens/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -39,9 +39,43 @@ class _registerState extends State<register> {
     );
   }
 
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    // new Future.delayed(new Duration(seconds: 3), () {
+    //   Navigator.pop(context);
+    // });
+  }
+
   void cacheData(dynamic value) async {
     Box data = await Hive.openBox('passwordData');
     data.put('myData', value);
+  }
+
+  void cacheUserData(dynamic value) async {
+    Box data = await Hive.openBox('userData');
+    data.put('user', value);
   }
 
   @override
@@ -228,10 +262,13 @@ class _registerState extends State<register> {
                         }
                       });
                     } else {
+                      _onLoading();
+
                       http.Response response = await register(email, password);
                       Map res = json.decode(response.body);
 
                       if (res.containsKey('message')) {
+                        Navigator.pop(context);
                         setState(() {
                           emailController.text = email;
                           passwordController.text = password;
@@ -239,16 +276,13 @@ class _registerState extends State<register> {
                           errMsg = res['message'];
                         });
                       } else {
-                        await verify(email);
+                        Navigator.pop(context);
                         List root = ['root', '', ''];
                         cacheData(root);
-                        Navigator.push(
+                        cacheUserData(res);
+                        Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => verifyMail(
-                                    emailData: res,
-                                    type: "login",
-                                  )),
+                          MaterialPageRoute(builder: (context) => homeScreen()),
                         );
                       }
                     }

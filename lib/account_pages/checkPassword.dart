@@ -49,6 +49,32 @@ class _checkPasswordState extends State<checkPassword> {
     }
   }
 
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  color: Colors.white,
+                  backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   TextEditingController passwordController = TextEditingController();
   String errMsg = "";
 
@@ -214,10 +240,12 @@ class _checkPasswordState extends State<checkPassword> {
                           }
                         });
                       } else {
+                        _onLoading();
                         http.Response response = await check(email, password);
                         Map res = json.decode(response.body);
 
                         if (res.containsKey("changeKey")) {
+                          Navigator.pop(context);
                           showMaterialModalBottomSheet(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.only(
@@ -242,6 +270,7 @@ class _checkPasswordState extends State<checkPassword> {
                             ),
                           );
                         } else {
+                          Navigator.pop(context);
                           setState(() {
                             errMsg = res["message"];
                           });
