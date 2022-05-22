@@ -21,7 +21,7 @@ class _addNewState extends State<addNew> {
         color: Colors.white,
       ),
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.5,
       child: Padding(
           padding: const EdgeInsets.fromLTRB(35, 10, 35, 40),
           child: Column(

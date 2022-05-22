@@ -22,7 +22,7 @@ class _folderSettingsState extends State<folderSettings> {
         color: Colors.white,
       ),
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.25,
+      height: MediaQuery.of(context).size.height * 0.5,
       child: Container(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(35, 10, 35, 40),
