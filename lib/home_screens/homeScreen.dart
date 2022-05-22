@@ -103,6 +103,49 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
 
+  void _uploaded() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+          shape: CircleBorder(),
+          child: Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new ImageIcon(
+                  AssetImage("assets/icons/cloud.png"),
+                  color: Colors.white,
+                  size: 20,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  'Uploaded!',
+                  style: TextStyle(
+                    fontFamily: 'gilroy',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+    new Future.delayed(new Duration(seconds: 1), () {
+      Navigator.pop(context);
+    });
+  }
+
   List traversal = [];
 
   @override
@@ -161,8 +204,9 @@ class _homeScreenState extends State<homeScreen> {
                               userData['key'], resData, passwordOnly);
                           List info = json.decode(putInfo.body);
                           Navigator.pop(context);
+                          _uploaded();
                         },
-                        child: ImageIcon(AssetImage("assets/icons/forward.png"),
+                        child: ImageIcon(AssetImage("assets/icons/cloud.png"),
                             color: Colors.white),
                         style: ElevatedButton.styleFrom(
                             shape: CircleBorder(),

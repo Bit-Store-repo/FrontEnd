@@ -20,6 +20,49 @@ class _passwordsState extends State<passwords> {
   Widget build(BuildContext context) {
     List data = widget.passwordData;
 
+    void _onLoading() {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+            shape: CircleBorder(),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  new ImageIcon(
+                    AssetImage("assets/icons/tick.png"),
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Copied!',
+                    style: TextStyle(
+                      fontFamily: 'gilroy',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+      new Future.delayed(new Duration(seconds: 1), () {
+        Navigator.pop(context);
+      });
+    }
+
     return Container(
       child: ListView.builder(
         physics: NeverScrollableScrollPhysics(),
@@ -41,7 +84,7 @@ class _passwordsState extends State<passwords> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
               child: Container(
-                height: 55,
+                height: 51,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -55,11 +98,11 @@ class _passwordsState extends State<passwords> {
                     ),
                   ],
                   border: Border.all(color: Colors.white, width: 2),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(12),
                   color: Colors.white,
                 ),
                 child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -67,8 +110,9 @@ class _passwordsState extends State<passwords> {
                         Expanded(
                             flex: 1,
                             child: ImageIcon(
-                              AssetImage("assets/icons/user.png"),
+                              AssetImage("assets/icons/password.png"),
                               color: Color.fromRGBO(77, 77, 77, 1),
+                              size: 20,
                             )),
                         SizedBox(
                           width: 20,
@@ -109,6 +153,7 @@ class _passwordsState extends State<passwords> {
                             flex: 1,
                             child: InkWell(
                                 onTap: () {
+                                  _onLoading();
                                   Clipboard.setData(ClipboardData(
                                       text: data[index]['password']));
                                 },

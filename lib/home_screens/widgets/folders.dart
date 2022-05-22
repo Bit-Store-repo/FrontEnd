@@ -59,7 +59,7 @@ class _foldersState extends State<folders> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
               child: Container(
-                height: 55,
+                height: 51,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -73,11 +73,11 @@ class _foldersState extends State<folders> {
                     ),
                   ],
                   border: Border.all(color: Colors.white, width: 2),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(12),
                   color: Colors.white,
                 ),
                 child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -85,8 +85,9 @@ class _foldersState extends State<folders> {
                         Expanded(
                             flex: 1,
                             child: ImageIcon(
-                              AssetImage("assets/icons/user.png"),
+                              AssetImage("assets/icons/folderLock.png"),
                               color: Color.fromRGBO(77, 77, 77, 1),
+                              size: 20,
                             )),
                         SizedBox(
                           width: 20,
@@ -101,7 +102,7 @@ class _foldersState extends State<folders> {
                                 '${data[index]['name']}',
                                 style: TextStyle(
                                   fontFamily: 'gilroy',
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w600,
                                   fontSize: 16,
                                   color: Color.fromRGBO(27, 27, 27, 1),
                                 ),

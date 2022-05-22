@@ -159,6 +159,7 @@ class _newEditFolderState extends State<newEditFolder> {
 
                     //  Name of password
                     Container(
+                      height: 51,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         boxShadow: [
@@ -181,15 +182,14 @@ class _newEditFolderState extends State<newEditFolder> {
                         child: TextFormField(
                           controller: nameController,
                           decoration: InputDecoration(
-                            border: InputBorder.none,
-                            label: Text(
-                              'Enter folder name',
-                              style: TextStyle(
-                                  fontFamily: 'gilroy',
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(77, 77, 77, 1)),
+                            hintText: 'Folder Name',
+                            hintStyle: TextStyle(
+                              fontFamily: 'gilroy',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 13,
+                              color: Color.fromRGBO(77, 77, 77, 1),
                             ),
+                            border: InputBorder.none,
                           ),
                         ),
                       ),
@@ -200,7 +200,7 @@ class _newEditFolderState extends State<newEditFolder> {
                       height: 8,
                     ),
                     Container(
-                        height: 130,
+                        height: 100,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           boxShadow: [
@@ -231,16 +231,15 @@ class _newEditFolderState extends State<newEditFolder> {
                                     TextFormField(
                                       controller: aboutController,
                                       decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        label: Text(
-                                          'Addtl. info to help you remember',
-                                          style: TextStyle(
-                                              fontFamily: 'gilroy',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                              color: Color.fromRGBO(
-                                                  77, 77, 77, 1)),
+                                        hintText:
+                                            'Addtl. Info to help you remember',
+                                        hintStyle: TextStyle(
+                                          fontFamily: 'gilroy',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13,
+                                          color: Color.fromRGBO(77, 77, 77, 1),
                                         ),
+                                        border: InputBorder.none,
                                       ),
                                     ),
                                   ],
@@ -251,81 +250,81 @@ class _newEditFolderState extends State<newEditFolder> {
                         )),
 
                     //  Icon to display
+                    // SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Container(
+                    //     width: double.infinity,
+                    //     decoration: BoxDecoration(
+                    //       boxShadow: [
+                    //         BoxShadow(
+                    //           color: Color.fromRGBO(35, 35, 35, 0.8),
+                    //           offset: const Offset(
+                    //             0,
+                    //             4,
+                    //           ),
+                    //           blurRadius: 14,
+                    //           spreadRadius: -15,
+                    //         ),
+                    //       ],
+                    //       border: Border.all(color: Colors.white, width: 2),
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       color: Colors.white,
+                    //     ),
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //         children: [
+                    //           Expanded(
+                    //             flex: 8,
+                    //             child: Text(
+                    //               'Select Icon to display',
+                    //               style: TextStyle(
+                    //                 fontFamily: 'gilroy',
+                    //                 fontWeight: FontWeight.w400,
+                    //                 fontSize: 16,
+                    //                 color: Color.fromRGBO(27, 27, 27, 1),
+                    //               ),
+                    //             ),
+                    //           ),
+                    //           Expanded(
+                    //             flex: 3,
+                    //             child: Column(
+                    //               crossAxisAlignment: CrossAxisAlignment.end,
+                    //               mainAxisAlignment: MainAxisAlignment.start,
+                    //               children: [
+                    //                 DropdownButton<String>(
+                    //                   value: dropdownValue,
+                    //                   icon: ImageIcon(
+                    //                     AssetImage("assets/icons/down.png"),
+                    //                     color: Color.fromRGBO(27, 27, 27, 1),
+                    //                   ),
+                    //                   elevation: 16,
+                    //                   style: const TextStyle(
+                    //                       color: Color.fromRGBO(27, 27, 27, 1)),
+                    //                   onChanged: (dynamic? newValue) {
+                    //                     setState(() {
+                    //                       dropdownValue = newValue;
+                    //                     });
+                    //                   },
+                    //                   items: icons
+                    //                       .map<DropdownMenuItem<String>>(
+                    //                           (dynamic value) {
+                    //                     return DropdownMenuItem<String>(
+                    //                       value: value,
+                    //                       child: Text(value),
+                    //                     );
+                    //                   }).toList(),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     )),
                     SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(35, 35, 35, 0.8),
-                              offset: const Offset(
-                                0,
-                                4,
-                              ),
-                              blurRadius: 14,
-                              spreadRadius: -15,
-                            ),
-                          ],
-                          border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Expanded(
-                                flex: 8,
-                                child: Text(
-                                  'Select Icon to display',
-                                  style: TextStyle(
-                                    fontFamily: 'gilroy',
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(27, 27, 27, 1),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    DropdownButton<String>(
-                                      value: dropdownValue,
-                                      icon: ImageIcon(
-                                        AssetImage("assets/icons/down.png"),
-                                        color: Color.fromRGBO(27, 27, 27, 1),
-                                      ),
-                                      elevation: 16,
-                                      style: const TextStyle(
-                                          color: Color.fromRGBO(27, 27, 27, 1)),
-                                      onChanged: (dynamic? newValue) {
-                                        setState(() {
-                                          dropdownValue = newValue;
-                                        });
-                                      },
-                                      items: icons
-                                          .map<DropdownMenuItem<String>>(
-                                              (dynamic value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        )),
-                    SizedBox(
-                      height: 25,
+                      height: 20,
                     ),
                     InkWell(
                       onTap: () {
@@ -400,10 +399,11 @@ class _newEditFolderState extends State<newEditFolder> {
                         }
                       },
                       child: Container(
+                        height: 51,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(14),
                           gradient: LinearGradient(
                             colors: [
                               Color.fromRGBO(180, 231, 229, 1),
@@ -414,14 +414,14 @@ class _newEditFolderState extends State<newEditFolder> {
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(20.0, 15, 20, 15),
+                          padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                           child: Center(
                             child: Text(
                               'Save',
                               style: TextStyle(
                                 fontFamily: 'gilroy',
                                 fontWeight: FontWeight.w600,
-                                fontSize: 20,
+                                fontSize: 19,
                                 color: Color.fromRGBO(22, 22, 22, 1),
                               ),
                             ),

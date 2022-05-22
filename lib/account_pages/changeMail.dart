@@ -176,7 +176,7 @@ class _changeMailState extends State<changeMail> {
                         hintText: 'Email',
                         hintStyle: TextStyle(
                           fontFamily: 'gilroy',
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color.fromRGBO(77, 77, 77, 1),
                         ),
@@ -232,7 +232,7 @@ class _changeMailState extends State<changeMail> {
                         hintText: 'New email',
                         hintStyle: TextStyle(
                           fontFamily: 'gilroy',
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color.fromRGBO(77, 77, 77, 1),
                         ),
@@ -300,8 +300,10 @@ class _changeMailState extends State<changeMail> {
 
                       if (!res.containsKey("message")) {
                         cacheUserData(res);
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, "home", (r) => false);
+                        int count = 0;
+                        Navigator.popUntil(context, (route) {
+                          return count++ == 2;
+                        });
                       } else {
                         setState(() {
                           newMailController.text = email;

@@ -175,7 +175,7 @@ class _changePasswordState extends State<changePassword> {
                         hintText: 'Enter Password',
                         hintStyle: TextStyle(
                           fontFamily: 'gilroy',
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color.fromRGBO(77, 77, 77, 1),
                         ),
@@ -231,7 +231,7 @@ class _changePasswordState extends State<changePassword> {
                         hintText: 'Re-enter Password',
                         hintStyle: TextStyle(
                           fontFamily: 'gilroy',
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color.fromRGBO(77, 77, 77, 1),
                         ),
@@ -299,8 +299,10 @@ class _changePasswordState extends State<changePassword> {
 
                         if (!res.containsKey("message")) {
                           cacheUserData(res);
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "home", (r) => false);
+                          int count = 0;
+                          Navigator.popUntil(context, (route) {
+                            return count++ == 2;
+                          });
                         } else {
                           setState(() {
                             password1Controller.text = newPassword;

@@ -304,7 +304,7 @@ class _edit_accountState extends State<edit_account> {
                                             hintText: '${userName}',
                                             hintStyle: TextStyle(
                                               fontFamily: 'gilroy',
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w400,
                                               fontSize: 13,
                                               color:
                                                   Color.fromRGBO(77, 77, 77, 1),
@@ -613,7 +613,11 @@ class _edit_accountState extends State<edit_account> {
                                   checkPassword(type: 'mail'),
                                 ],
                               ),
-                            ),
+                            ).then((_) {
+                              setState(() {
+                                userData = {};
+                              });
+                            }),
                             child: Container(
                               height: 60,
                               decoration: BoxDecoration(
@@ -706,7 +710,11 @@ class _edit_accountState extends State<edit_account> {
                                   checkPassword(type: 'password')
                                 ],
                               ),
-                            ),
+                            ).then((_) {
+                              setState(() {
+                                userData = {};
+                              });
+                            }),
                             child: Container(
                               height: 60,
                               decoration: BoxDecoration(

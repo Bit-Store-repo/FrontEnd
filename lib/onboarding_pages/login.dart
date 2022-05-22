@@ -152,7 +152,7 @@ class _login_screenState extends State<login_screen> {
                         hintText: 'Email',
                         hintStyle: TextStyle(
                           fontFamily: 'gilroy',
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color.fromRGBO(77, 77, 77, 1),
                         ),
@@ -190,7 +190,7 @@ class _login_screenState extends State<login_screen> {
                         hintText: 'Password',
                         hintStyle: TextStyle(
                           fontFamily: 'gilroy',
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           fontSize: 13,
                           color: Color.fromRGBO(77, 77, 77, 1),
                         ),
