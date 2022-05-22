@@ -98,14 +98,14 @@ class _login_screenState extends State<login_screen> {
           width: double.infinity,
           height: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(35, 80, 35, 40),
+            padding: const EdgeInsets.fromLTRB(20, 60, 20, 40),
             child: Column(
               children: [
                 Row(
                   children: [Image.asset('assets/logo.png')],
                 ),
                 SizedBox(
-                  height: 80,
+                  height: 50,
                 ),
                 Text(
                   'Hello Again',
@@ -113,7 +113,7 @@ class _login_screenState extends State<login_screen> {
                       fontFamily: 'gilroy',
                       fontSize: 45,
                       fontWeight: FontWeight.w600,
-                      color: Color.fromRGBO(77, 77, 77, 1)),
+                      color: Color.fromRGBO(60, 60, 60, 1)),
                   textAlign: TextAlign.center,
                 ),
                 Text(
@@ -126,14 +126,15 @@ class _login_screenState extends State<login_screen> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
                 Container(
+                  height: 51,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 2),
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
+                        topLeft: Radius.circular(14),
+                        topRight: Radius.circular(14)),
                     gradient: LinearGradient(
                       colors: [
                         Color.fromRGBO(252, 218, 221, 1),
@@ -148,29 +149,30 @@ class _login_screenState extends State<login_screen> {
                     child: TextFormField(
                       controller: emailController,
                       decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: TextStyle(
+                          fontFamily: 'gilroy',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                        ),
                         border: InputBorder.none,
                         icon: Image.asset(
                           'assets/icons/user.png',
                           color: Color.fromRGBO(77, 77, 77, 1),
-                        ),
-                        label: Text(
-                          'Email',
-                          style: TextStyle(
-                              fontFamily: 'gilroy',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Color.fromRGBO(77, 77, 77, 1)),
+                          height: 15,
                         ),
                       ),
                     ),
                   ),
                 ),
                 Container(
+                  height: 51,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 2),
                     borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
+                        bottomLeft: Radius.circular(14),
+                        bottomRight: Radius.circular(14)),
                     gradient: LinearGradient(
                       colors: [
                         Color.fromRGBO(252, 218, 221, 1),
@@ -185,18 +187,18 @@ class _login_screenState extends State<login_screen> {
                     child: TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
+                        hintText: 'Password',
+                        hintStyle: TextStyle(
+                          fontFamily: 'gilroy',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                        ),
                         border: InputBorder.none,
                         icon: Image.asset(
                           'assets/icons/password.png',
                           color: Color.fromRGBO(77, 77, 77, 1),
-                        ),
-                        label: Text(
-                          'Password',
-                          style: TextStyle(
-                              fontFamily: 'gilroy',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Color.fromRGBO(77, 77, 77, 1)),
+                          height: 17,
                         ),
                       ),
                     ),
@@ -204,7 +206,7 @@ class _login_screenState extends State<login_screen> {
                 ),
                 if (emailFlag) ...[
                   SizedBox(
-                    height: 0,
+                    height: 10,
                   ),
                   TextButton(
                     onPressed: () {},
@@ -220,7 +222,7 @@ class _login_screenState extends State<login_screen> {
                   ),
                 ],
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 TextButton(
                   onPressed: () {},
@@ -235,7 +237,7 @@ class _login_screenState extends State<login_screen> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -307,7 +309,7 @@ class _login_screenState extends State<login_screen> {
                           loginRouter();
                           cacheUserData(res, password);
                           Navigator.pop(context);
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => homeScreen()),
@@ -329,22 +331,22 @@ class _login_screenState extends State<login_screen> {
                     }
                   },
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Text(
                       'Login',
                       style: TextStyle(
                         fontFamily: 'gilroy',
                         fontWeight: FontWeight.w600,
-                        fontSize: 24,
+                        fontSize: 19,
                         color: Colors.white,
                       ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
                       primary: Color.fromRGBO(22, 22, 22, 1),
-                      minimumSize: const Size.fromHeight(50),
+                      minimumSize: const Size.fromHeight(44),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(14),
                       )),
                 ),
                 SizedBox(
@@ -380,8 +382,8 @@ class _login_screenState extends State<login_screen> {
                   style: TextStyle(
                     fontFamily: 'gilroy',
                     fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                    color: Color.fromRGBO(22, 22, 22, 1),
+                    fontSize: 16,
+                    color: Color.fromRGBO(104, 104, 104, 1),
                   ),
                 ),
                 SizedBox(
@@ -392,10 +394,11 @@ class _login_screenState extends State<login_screen> {
                     Navigator.pushReplacementNamed(context, 'register');
                   },
                   child: Container(
+                    height: 44,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(14),
                       gradient: LinearGradient(
                         colors: [
                           Color.fromRGBO(180, 231, 229, 1),
@@ -413,7 +416,7 @@ class _login_screenState extends State<login_screen> {
                           style: TextStyle(
                             fontFamily: 'gilroy',
                             fontWeight: FontWeight.w600,
-                            fontSize: 24,
+                            fontSize: 19,
                             color: Color.fromRGBO(22, 22, 22, 1),
                           ),
                         ),

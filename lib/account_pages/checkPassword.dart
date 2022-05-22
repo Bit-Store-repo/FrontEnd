@@ -95,7 +95,7 @@ class _checkPasswordState extends State<checkPassword> {
         ),
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 40),
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -122,7 +122,7 @@ class _checkPasswordState extends State<checkPassword> {
                 ],
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               Column(
                 children: [
@@ -136,7 +136,7 @@ class _checkPasswordState extends State<checkPassword> {
                     textAlign: TextAlign.center,
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
                     child: Text(
                       'You’re trying to enter security settings and we need to verify you',
                       style: TextStyle(
@@ -150,7 +150,7 @@ class _checkPasswordState extends State<checkPassword> {
                 ],
               ),
               SizedBox(
-                height: 40,
+                height: 30,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 8, 20, 8),
@@ -167,9 +167,10 @@ class _checkPasswordState extends State<checkPassword> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                 child: Container(
+                  height: 51,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderRadius: BorderRadius.all(Radius.circular(14)),
                     gradient: LinearGradient(
                       colors: [
                         Color.fromRGBO(252, 231, 223, 1),
@@ -184,18 +185,18 @@ class _checkPasswordState extends State<checkPassword> {
                     child: TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
+                        hintText: 'Password',
+                        hintStyle: TextStyle(
+                          fontFamily: 'gilroy',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                        ),
                         border: InputBorder.none,
                         icon: Image.asset(
                           'assets/icons/password.png',
                           color: Color.fromRGBO(77, 77, 77, 1),
-                        ),
-                        label: Text(
-                          'Password',
-                          style: TextStyle(
-                              fontFamily: 'gilroy',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Color.fromRGBO(77, 77, 77, 1)),
+                          height: 15,
                         ),
                       ),
                     ),
@@ -278,10 +279,11 @@ class _checkPasswordState extends State<checkPassword> {
                       }
                     },
                     child: Container(
+                      height: 51,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(14),
                         gradient: LinearGradient(
                           colors: [
                             Color.fromRGBO(180, 231, 229, 1),
@@ -299,7 +301,7 @@ class _checkPasswordState extends State<checkPassword> {
                             style: TextStyle(
                               fontFamily: 'gilroy',
                               fontWeight: FontWeight.w600,
-                              fontSize: 24,
+                              fontSize: 19,
                               color: Color.fromRGBO(22, 22, 22, 1),
                             ),
                           ),

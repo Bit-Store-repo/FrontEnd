@@ -1,4 +1,4 @@
-#Sat May 21 21:17:26 IST 2022
+#Sun May 22 11:06:17 IST 2022
 base.0=/Users/tarun/StudioProjects/bit_store/FrontEnd/build/app/intermediates/dex/release/minifyReleaseWithR8/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

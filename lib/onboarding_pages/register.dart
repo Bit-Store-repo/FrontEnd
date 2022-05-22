@@ -93,14 +93,14 @@ class _registerState extends State<register> {
           width: double.infinity,
           height: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(35, 80, 35, 40),
+            padding: const EdgeInsets.fromLTRB(20, 60, 20, 40),
             child: Column(
               children: [
                 Row(
                   children: [Image.asset('assets/logo.png')],
                 ),
                 SizedBox(
-                  height: 80,
+                  height: 50,
                 ),
                 Text(
                   'Join Us!',
@@ -108,7 +108,7 @@ class _registerState extends State<register> {
                       fontFamily: 'gilroy',
                       fontSize: 45,
                       fontWeight: FontWeight.w600,
-                      color: Color.fromRGBO(77, 77, 77, 1)),
+                      color: Color.fromRGBO(60, 60, 60, 1)),
                   textAlign: TextAlign.center,
                 ),
                 Text(
@@ -121,14 +121,15 @@ class _registerState extends State<register> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
                 Container(
+                  height: 51,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 2),
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)),
+                        topLeft: Radius.circular(14),
+                        topRight: Radius.circular(14)),
                     gradient: LinearGradient(
                       colors: [
                         Color.fromRGBO(252, 218, 221, 1),
@@ -143,29 +144,30 @@ class _registerState extends State<register> {
                     child: TextFormField(
                       controller: emailController,
                       decoration: InputDecoration(
+                        hintText: 'Email',
+                        hintStyle: TextStyle(
+                          fontFamily: 'gilroy',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                        ),
                         border: InputBorder.none,
                         icon: Image.asset(
                           'assets/icons/user.png',
                           color: Color.fromRGBO(77, 77, 77, 1),
-                        ),
-                        label: Text(
-                          'Email',
-                          style: TextStyle(
-                              fontFamily: 'gilroy',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Color.fromRGBO(77, 77, 77, 1)),
+                          height: 15,
                         ),
                       ),
                     ),
                   ),
                 ),
                 Container(
+                  height: 51,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 2),
                     borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
+                        bottomLeft: Radius.circular(14),
+                        bottomRight: Radius.circular(14)),
                     gradient: LinearGradient(
                       colors: [
                         Color.fromRGBO(252, 218, 221, 1),
@@ -180,41 +182,26 @@ class _registerState extends State<register> {
                     child: TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
+                        hintText: 'Password',
+                        hintStyle: TextStyle(
+                          fontFamily: 'gilroy',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                        ),
                         border: InputBorder.none,
                         icon: Image.asset(
                           'assets/icons/password.png',
                           color: Color.fromRGBO(77, 77, 77, 1),
-                        ),
-                        label: Text(
-                          'Password',
-                          style: TextStyle(
-                              fontFamily: 'gilroy',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Color.fromRGBO(77, 77, 77, 1)),
+                          height: 17,
                         ),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'There are no terms and policies!',
-                    style: TextStyle(
-                      color: Color.fromRGBO(77, 77, 77, 1),
-                      fontSize: 16,
-                      fontFamily: 'gilroy',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
                 if (emailFlag) ...[
                   SizedBox(
-                    height: 0,
+                    height: 5,
                   ),
                   TextButton(
                     onPressed: () {},
@@ -230,7 +217,22 @@ class _registerState extends State<register> {
                   ),
                 ],
                 SizedBox(
-                  height: 10,
+                  height: 0,
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'There are no terms and policies!',
+                    style: TextStyle(
+                      color: Color.fromRGBO(77, 77, 77, 1),
+                      fontSize: 13,
+                      fontFamily: 'gilroy',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
                 ),
                 InkWell(
                   onTap: () async {
@@ -293,7 +295,7 @@ class _registerState extends State<register> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white, width: 2),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(14),
                       gradient: LinearGradient(
                         colors: [
                           Color.fromRGBO(180, 231, 229, 1),
@@ -303,6 +305,7 @@ class _registerState extends State<register> {
                         end: Alignment.topRight,
                       ),
                     ),
+                    height: 44,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 10),
                       child: Center(
@@ -311,7 +314,7 @@ class _registerState extends State<register> {
                           style: TextStyle(
                             fontFamily: 'gilroy',
                             fontWeight: FontWeight.w600,
-                            fontSize: 24,
+                            fontSize: 19,
                             color: Color.fromRGBO(22, 22, 22, 1),
                           ),
                         ),
@@ -352,7 +355,7 @@ class _registerState extends State<register> {
                   style: TextStyle(
                       fontFamily: 'gilroy',
                       fontWeight: FontWeight.w500,
-                      fontSize: 20,
+                      fontSize: 16,
                       color: Color.fromRGBO(104, 104, 104, 1)),
                 ),
                 SizedBox(
@@ -363,22 +366,22 @@ class _registerState extends State<register> {
                     Navigator.pushReplacementNamed(context, 'login');
                   },
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: Text(
                       'Login',
                       style: TextStyle(
                         fontFamily: 'gilroy',
                         fontWeight: FontWeight.w600,
-                        fontSize: 24,
+                        fontSize: 19,
                         color: Colors.white,
                       ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
                       primary: Color.fromRGBO(22, 22, 22, 1),
-                      minimumSize: const Size.fromHeight(50),
+                      minimumSize: const Size.fromHeight(44),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                        borderRadius: BorderRadius.circular(14),
                       )),
                 ),
               ],

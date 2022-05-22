@@ -126,7 +126,7 @@ class _edit_accountState extends State<edit_account> {
       height: MediaQuery.of(context).size.height * 0.9,
       child: Container(
         child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 40),
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 40),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -157,18 +157,18 @@ class _edit_accountState extends State<edit_account> {
                       ],
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     Center(
                       //  the image
                       child: Container(
-                        width: 140.0,
-                        height: 130.0,
+                        width: 100,
+                        height: 100,
                         child: Stack(children: <Widget>[
                           new Container(
                             alignment: Alignment.center,
-                            height: 116,
-                            width: 127,
+                            height: 100,
+                            width: 100,
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
@@ -182,15 +182,19 @@ class _edit_accountState extends State<edit_account> {
                                 ),
                               ],
                               image: DecorationImage(
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.6),
+                                    BlendMode.dstATop,
+                                  ),
                                   image: NetworkImage(imageUrl),
                                   fit: BoxFit.cover),
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(14),
                               border: Border.all(color: Colors.white, width: 2),
                             ),
                           ),
                           Align(
-                            alignment: Alignment.bottomRight,
+                            alignment: Alignment.center,
                             child: ElevatedButton(
                               onPressed: () async {
                                 _onLoading();
@@ -246,9 +250,10 @@ class _edit_accountState extends State<edit_account> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Container(
+                        height: 52,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(14),
                           gradient: LinearGradient(
                             colors: [
                               Color.fromRGBO(252, 231, 223, 1),
@@ -259,7 +264,7 @@ class _edit_accountState extends State<edit_account> {
                           ),
                         ),
                         child: Padding(
-                            padding: const EdgeInsets.fromLTRB(20.0, 8, 20, 8),
+                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -275,6 +280,7 @@ class _edit_accountState extends State<edit_account> {
                                 Expanded(
                                   flex: 8,
                                   child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -295,16 +301,15 @@ class _edit_accountState extends State<edit_account> {
                                           controller: usernameController,
                                           autofocus: true,
                                           decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            label: Text(
-                                              '${userName}',
-                                              style: TextStyle(
-                                                  fontFamily: 'gilroy',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 16,
-                                                  color: Color.fromRGBO(
-                                                      77, 77, 77, 1)),
+                                            hintText: '${userName}',
+                                            hintStyle: TextStyle(
+                                              fontFamily: 'gilroy',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 13,
+                                              color:
+                                                  Color.fromRGBO(77, 77, 77, 1),
                                             ),
+                                            border: InputBorder.none,
                                           ),
                                         ),
                                       ]
@@ -314,6 +319,7 @@ class _edit_accountState extends State<edit_account> {
                                 Expanded(
                                   flex: 1,
                                   child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       if (edit_userName == false) ...[
                                         ElevatedButton(
@@ -405,9 +411,10 @@ class _edit_accountState extends State<edit_account> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                       child: Container(
+                        height: 52,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(14),
                           gradient: LinearGradient(
                             colors: [
                               Color.fromRGBO(252, 231, 223, 1),
@@ -418,7 +425,7 @@ class _edit_accountState extends State<edit_account> {
                           ),
                         ),
                         child: Padding(
-                            padding: const EdgeInsets.fromLTRB(20.0, 8, 20, 8),
+                            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -434,6 +441,7 @@ class _edit_accountState extends State<edit_account> {
                                 Expanded(
                                   flex: 8,
                                   child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
@@ -502,7 +510,7 @@ class _edit_accountState extends State<edit_account> {
                     ),
 
                     SizedBox(
-                      height: 15,
+                      height: 5,
                     ),
 
                     // if (status == 'not_verified') ...[
@@ -607,12 +615,13 @@ class _edit_accountState extends State<edit_account> {
                               ),
                             ),
                             child: Container(
+                              height: 60,
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: Colors.white, width: 2),
                                 borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20)),
+                                    topLeft: Radius.circular(14),
+                                    topRight: Radius.circular(14)),
                                 gradient: LinearGradient(
                                   colors: [
                                     Color.fromRGBO(252, 231, 223, 1),
@@ -623,8 +632,8 @@ class _edit_accountState extends State<edit_account> {
                                 ),
                               ),
                               child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 12, 20, 12),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -641,6 +650,8 @@ class _edit_accountState extends State<edit_account> {
                                       Expanded(
                                         flex: 8,
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
@@ -697,12 +708,13 @@ class _edit_accountState extends State<edit_account> {
                               ),
                             ),
                             child: Container(
+                              height: 60,
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: Colors.white, width: 2),
                                 borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(20),
-                                    bottomRight: Radius.circular(20)),
+                                    bottomLeft: Radius.circular(14),
+                                    bottomRight: Radius.circular(14)),
                                 gradient: LinearGradient(
                                   colors: [
                                     Color.fromRGBO(252, 231, 223, 1),
@@ -713,8 +725,8 @@ class _edit_accountState extends State<edit_account> {
                                 ),
                               ),
                               child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 12, 20, 12),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -732,6 +744,8 @@ class _edit_accountState extends State<edit_account> {
                                       Expanded(
                                         flex: 8,
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [

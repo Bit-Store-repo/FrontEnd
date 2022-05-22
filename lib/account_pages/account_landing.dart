@@ -113,7 +113,7 @@ class _account_landingState extends State<account_landing> {
       height: MediaQuery.of(context).size.height * 0.9,
       child: Container(
         child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 40),
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 40),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -143,12 +143,12 @@ class _account_landingState extends State<account_landing> {
                       ],
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 20,
                     ),
                     Center(
                       child: Container(
-                        height: 116,
-                        width: 127,
+                        height: 100,
+                        width: 100,
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -164,7 +164,7 @@ class _account_landingState extends State<account_landing> {
                           image: DecorationImage(
                               image: NetworkImage(imageUrl), fit: BoxFit.cover),
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(14),
                           border: Border.all(color: Colors.white, width: 2),
                         ),
                       ),
@@ -178,7 +178,7 @@ class _account_landingState extends State<account_landing> {
                       style: TextStyle(
                           fontFamily: 'gilroy',
                           fontWeight: FontWeight.w600,
-                          fontSize: 24,
+                          fontSize: 18,
                           color: Color.fromRGBO(22, 22, 22, 1)),
                     ),
 
@@ -194,7 +194,7 @@ class _account_landingState extends State<account_landing> {
                           style: TextStyle(
                             fontFamily: 'gilroy',
                             fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                            fontSize: 13,
                             color: Color.fromRGBO(104, 104, 104, 1),
                           ),
                         ),
@@ -214,15 +214,15 @@ class _account_landingState extends State<account_landing> {
                     ),
 
                     SizedBox(
-                      height: 25,
+                      height: 15,
                     ),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          height: 70,
-                          width: 125,
+                          height: 60,
+                          width: 100,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
@@ -244,7 +244,7 @@ class _account_landingState extends State<account_landing> {
                               ),
                             ],
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(14),
                             border: Border.all(color: Colors.white, width: 2),
                           ),
                           child: Column(
@@ -255,15 +255,18 @@ class _account_landingState extends State<account_landing> {
                                 style: TextStyle(
                                     fontFamily: 'gilroy',
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 24,
+                                    fontSize: 18,
                                     color: Color.fromRGBO(93, 218, 214, 1)),
+                              ),
+                              SizedBox(
+                                height: 5,
                               ),
                               Text(
                                 'Keys Stored',
                                 style: TextStyle(
                                   fontFamily: 'gilroy',
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16,
+                                  fontSize: 13,
                                   color: Color.fromRGBO(22, 22, 22, 1),
                                 ),
                               ),
@@ -274,8 +277,8 @@ class _account_landingState extends State<account_landing> {
                           width: 15,
                         ),
                         Container(
-                          height: 70,
-                          width: 125,
+                          height: 60,
+                          width: 100,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
@@ -297,7 +300,7 @@ class _account_landingState extends State<account_landing> {
                               ),
                             ],
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(14),
                             border: Border.all(color: Colors.white, width: 2),
                           ),
                           child: Column(
@@ -308,7 +311,7 @@ class _account_landingState extends State<account_landing> {
                                 style: TextStyle(
                                     fontFamily: 'gilroy',
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 24,
+                                    fontSize: 18,
                                     color: Color.fromRGBO(93, 218, 214, 1)),
                               ),
                               Text(
@@ -316,7 +319,7 @@ class _account_landingState extends State<account_landing> {
                                 style: TextStyle(
                                   fontFamily: 'gilroy',
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16,
+                                  fontSize: 13,
                                   color: Color.fromRGBO(22, 22, 22, 1),
                                 ),
                               ),
@@ -326,12 +329,11 @@ class _account_landingState extends State<account_landing> {
                       ],
                     ),
 
-                    SizedBox(
-                      height: 25,
-                    ),
-
                     // conditional verify email button
                     if (status == 'not_verified') ...[
+                      SizedBox(
+                        height: 25,
+                      ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         child: InkWell(
@@ -353,9 +355,10 @@ class _account_landingState extends State<account_landing> {
                             });
                           },
                           child: Container(
+                            height: 51,
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.white, width: 2),
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(14),
                               gradient: LinearGradient(
                                 colors: [
                                   Color.fromRGBO(180, 231, 229, 1),
@@ -367,7 +370,7 @@ class _account_landingState extends State<account_landing> {
                             ),
                             child: Padding(
                                 padding:
-                                    const EdgeInsets.fromLTRB(20.0, 15, 20, 15),
+                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -382,21 +385,14 @@ class _account_landingState extends State<account_landing> {
                                     ),
                                     Expanded(
                                       flex: 8,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Verify Email',
-                                            style: TextStyle(
-                                              fontFamily: 'gilroy',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(27, 27, 27, 1),
-                                            ),
-                                          ),
-                                        ],
+                                      child: Text(
+                                        'Verify Email',
+                                        style: TextStyle(
+                                          fontFamily: 'gilroy',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
+                                          color: Color.fromRGBO(27, 27, 27, 1),
+                                        ),
                                       ),
                                     ),
                                     Expanded(
@@ -414,7 +410,7 @@ class _account_landingState extends State<account_landing> {
                     ],
 
                     SizedBox(
-                      height: 25,
+                      height: 15,
                     ),
 
                     // menu options
@@ -439,12 +435,13 @@ class _account_landingState extends State<account_landing> {
                               });
                             }),
                             child: Container(
+                              height: 60,
                               decoration: BoxDecoration(
                                 border:
                                     Border.all(color: Colors.white, width: 2),
                                 borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    topRight: Radius.circular(20)),
+                                    topLeft: Radius.circular(14),
+                                    topRight: Radius.circular(14)),
                                 gradient: LinearGradient(
                                   colors: [
                                     Color.fromRGBO(252, 231, 223, 1),
@@ -455,9 +452,11 @@ class _account_landingState extends State<account_landing> {
                                 ),
                               ),
                               child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(
-                                      20.0, 12, 20, 12),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                   child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Expanded(
@@ -473,6 +472,8 @@ class _account_landingState extends State<account_landing> {
                                       Expanded(
                                         flex: 8,
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
@@ -515,6 +516,7 @@ class _account_landingState extends State<account_landing> {
                             ),
                           ),
                           Container(
+                            height: 60,
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.white, width: 2),
                               borderRadius: BorderRadius.only(
@@ -531,7 +533,7 @@ class _account_landingState extends State<account_landing> {
                             ),
                             child: Padding(
                                 padding:
-                                    const EdgeInsets.fromLTRB(20.0, 12, 20, 12),
+                                    const EdgeInsets.fromLTRB(15, 0, 15, 0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -549,6 +551,8 @@ class _account_landingState extends State<account_landing> {
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             'Help',
@@ -591,7 +595,7 @@ class _account_landingState extends State<account_landing> {
                     ),
 
                     SizedBox(
-                      height: 25,
+                      height: 15,
                     ),
                     // logout
                     Padding(
@@ -615,9 +619,10 @@ class _account_landingState extends State<account_landing> {
                           }
                         },
                         child: Container(
+                          height: 51,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(14),
                             gradient: LinearGradient(
                               colors: [
                                 Color.fromRGBO(252, 231, 223, 1),
@@ -628,8 +633,7 @@ class _account_landingState extends State<account_landing> {
                             ),
                           ),
                           child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20.0, 15, 20, 15),
+                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -647,6 +651,8 @@ class _account_landingState extends State<account_landing> {
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'Logout',

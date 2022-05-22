@@ -87,7 +87,7 @@ class _verifyMailState extends State<verifyMail> {
           width: double.infinity,
           height: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(35, 80, 35, 40),
+            padding: const EdgeInsets.fromLTRB(20, 60, 20, 40),
             child: Column(
               children: [
                 Row(
@@ -117,7 +117,7 @@ class _verifyMailState extends State<verifyMail> {
                   'Verify Email',
                   style: TextStyle(
                       fontFamily: 'gilroy',
-                      fontSize: 45,
+                      fontSize: 34,
                       fontWeight: FontWeight.w600,
                       color: Color.fromRGBO(77, 77, 77, 1)),
                   textAlign: TextAlign.center,
@@ -128,14 +128,14 @@ class _verifyMailState extends State<verifyMail> {
                     'We’ve sent you an OTP to your email, please enter it below',
                     style: TextStyle(
                         fontFamily: 'gilroy',
-                        fontSize: 20,
+                        fontSize: 17,
                         fontWeight: FontWeight.w500,
                         color: Color.fromRGBO(104, 104, 104, 1)),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
                 Text(
                   '${email}',
@@ -146,25 +146,26 @@ class _verifyMailState extends State<verifyMail> {
                     color: Color.fromRGBO(12, 12, 12, 1),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Change',
-                    style: TextStyle(
-                      color: Color.fromRGBO(104, 104, 104, 1),
-                      fontSize: 16,
-                      fontFamily: 'gilroy',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
+                // TextButton(
+                //   onPressed: () {},
+                //   child: Text(
+                //     'Change',
+                //     style: TextStyle(
+                //       color: Color.fromRGBO(104, 104, 104, 1),
+                //       fontSize: 16,
+                //       fontFamily: 'gilroy',
+                //       fontWeight: FontWeight.w500,
+                //     ),
+                //   ),
+                // ),
                 SizedBox(
-                  height: 20,
+                  height: 30,
                 ),
                 Container(
+                  height: 51,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 2),
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderRadius: BorderRadius.all(Radius.circular(14)),
                     gradient: LinearGradient(
                       colors: [
                         Color.fromRGBO(252, 218, 221, 1),
@@ -175,22 +176,22 @@ class _verifyMailState extends State<verifyMail> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                     child: TextFormField(
                       controller: otpController,
                       decoration: InputDecoration(
+                        hintText: 'Enter OTP',
+                        hintStyle: TextStyle(
+                          fontFamily: 'gilroy',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                        ),
                         border: InputBorder.none,
                         icon: Image.asset(
                           'assets/icons/password.png',
                           color: Color.fromRGBO(77, 77, 77, 1),
-                        ),
-                        label: Text(
-                          'Enter your OTP',
-                          style: TextStyle(
-                              fontFamily: 'gilroy',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: Color.fromRGBO(77, 77, 77, 1)),
+                          height: 15,
                         ),
                       ),
                     ),
@@ -198,7 +199,7 @@ class _verifyMailState extends State<verifyMail> {
                 ),
                 if (wrongOtp) ...[
                   SizedBox(
-                    height: 0,
+                    height: 5,
                   ),
                   TextButton(
                     onPressed: () {},
@@ -214,9 +215,12 @@ class _verifyMailState extends State<verifyMail> {
                   ),
                 ],
                 SizedBox(
-                  height: 10,
+                  height: 0,
                 ),
                 if (wrongOtp == false) ...[
+                  SizedBox(
+                    height: 15,
+                  ),
                   InkWell(
                     onTap: () async {
                       String otp = otpController.text;
@@ -256,10 +260,11 @@ class _verifyMailState extends State<verifyMail> {
                       }
                     },
                     child: Container(
+                      height: 51,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(14),
                         gradient: LinearGradient(
                           colors: [
                             Color.fromRGBO(180, 231, 229, 1),
@@ -270,14 +275,14 @@ class _verifyMailState extends State<verifyMail> {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20.0, 10, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20.0, 0, 20, 0),
                         child: Center(
                           child: Text(
                             'Confirm',
                             style: TextStyle(
                               fontFamily: 'gilroy',
                               fontWeight: FontWeight.w600,
-                              fontSize: 24,
+                              fontSize: 19,
                               color: Color.fromRGBO(22, 22, 22, 1),
                             ),
                           ),
@@ -292,10 +297,11 @@ class _verifyMailState extends State<verifyMail> {
                       Navigator.pop(context);
                     },
                     child: Container(
+                      height: 51,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 2),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(14),
                         gradient: LinearGradient(
                           colors: [
                             Color.fromRGBO(223, 109, 114, 1),
@@ -313,7 +319,7 @@ class _verifyMailState extends State<verifyMail> {
                             style: TextStyle(
                               fontFamily: 'gilroy',
                               fontWeight: FontWeight.w600,
-                              fontSize: 24,
+                              fontSize: 19,
                               color: Colors.white,
                             ),
                           ),
