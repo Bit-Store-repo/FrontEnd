@@ -59,9 +59,11 @@ class _changePasswordState extends State<changePassword> {
     );
   }
 
-  void cacheUserData(dynamic value) async {
+  void cacheUserData(dynamic value, String pass) async {
     Box data = await Hive.openBox('userData');
+    Box password = await Hive.openBox('userPassword');
     data.put('user', value);
+    password.put('password', pass);
   }
 
   @override
@@ -298,7 +300,7 @@ class _changePasswordState extends State<changePassword> {
                         Navigator.pop(context);
 
                         if (!res.containsKey("message")) {
-                          cacheUserData(res);
+                          cacheUserData(res, password);
                           int count = 0;
                           Navigator.popUntil(context, (route) {
                             return count++ == 2;

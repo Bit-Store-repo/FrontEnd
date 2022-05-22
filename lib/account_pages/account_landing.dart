@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:bit_store/account_pages/editAccount.dart';
 import 'package:bit_store/onboarding_pages/verifyMail.dart';
+import 'package:crypto/crypto.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -21,14 +23,20 @@ class _account_landingState extends State<account_landing> {
   String userName = "";
   String email = "";
   String status = "";
+  String passwordOnly = "";
   String imageUrl =
       "https://www.icmetl.org/wp-content/uploads/2020/11/user-icon-human-person-sign-vector-10206693.png";
 
   Map userData = {};
+  List resData = [];
   void getCache() async {
     Box user = await Hive.openBox('userData');
+    Box passwordData = await Hive.openBox('passwordData');
+    Box password = await Hive.openBox('userPassword');
     if (userData.isEmpty) {
       setState(() {
+        resData = passwordData.get('myData');
+        passwordOnly = password.get('password');
         userData = user.get('user');
         userName = userData['userName'];
         imageUrl = userData['profPic'];
@@ -62,6 +70,23 @@ class _account_landingState extends State<account_landing> {
   void delData() async {
     Box data = await Hive.openBox('passwordData');
     data.put('myData', null);
+  }
+
+  Future<http.Response> putData(
+      String pKey, dynamic value, String password) async {
+    final key = encrypt.Key.fromUtf8(
+        sha256.convert(utf8.encode(password)).toString().substring(0, 16));
+    final iv = encrypt.IV.fromLength(8);
+    final encrypter = encrypt.Encrypter(encrypt.AES(key));
+    final encrypted = encrypter.encrypt(json.encode(value), iv: iv).base64;
+
+    return http.post(
+      Uri.parse('https://bit-store-blockchain.herokuapp.com/chain/add'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode(<String, String>{'key': pKey, 'data': encrypted}),
+    );
   }
 
   void delUserData() async {
@@ -100,6 +125,7 @@ class _account_landingState extends State<account_landing> {
   @override
   Widget build(BuildContext context) {
     getCache();
+    print(passwordOnly);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -610,6 +636,9 @@ class _account_landingState extends State<account_landing> {
                             logoutRouter();
                             delData();
                             delUserData();
+                            http.Response putInfo = await putData(
+                                userData['key'], resData, passwordOnly);
+                            List info = json.decode(putInfo.body);
                             Navigator.pop(context);
                             Navigator.pushNamedAndRemoveUntil(
                                 context, '/', (route) => false);
