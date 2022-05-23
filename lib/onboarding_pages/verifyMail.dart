@@ -34,7 +34,8 @@ class _verifyMailState extends State<verifyMail> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json.encode(<String, String>{'email': email, 'otp': otp}),
+      body: json
+          .encode(<String, String>{'email': email.toLowerCase(), 'otp': otp}),
     );
   }
 

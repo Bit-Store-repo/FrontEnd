@@ -23,8 +23,11 @@ class _changeMailState extends State<changeMail> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json.encode(
-          <String, String>{'email': email, 'newEmail': newEmail, 'key': key}),
+      body: json.encode(<String, String>{
+        'email': email.toLowerCase(),
+        'newEmail': newEmail,
+        'key': key
+      }),
     );
   }
 

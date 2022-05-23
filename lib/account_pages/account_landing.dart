@@ -57,7 +57,7 @@ class _account_landingState extends State<account_landing> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json.encode(<String, String>{'email': email}),
+      body: json.encode(<String, String>{'email': email.toLowerCase()}),
     );
   }
 
@@ -122,10 +122,23 @@ class _account_landingState extends State<account_landing> {
     );
   }
 
+  int fCount = 0;
+  int pCount = 0;
+
   @override
   Widget build(BuildContext context) {
     getCache();
-    print(passwordOnly);
+
+    if (fCount == 0 && pCount == 0) {
+      for (int i = 3; i < resData.length; i++) {
+        if (resData[i].runtimeType == List<dynamic>) {
+          fCount += 1;
+        } else {
+          pCount += 1;
+        }
+      }
+    }
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -281,7 +294,7 @@ class _account_landingState extends State<account_landing> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${keys}',
+                                  '${pCount}',
                                   style: TextStyle(
                                       fontFamily: 'gilroy',
                                       fontWeight: FontWeight.w600,
@@ -337,7 +350,7 @@ class _account_landingState extends State<account_landing> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${folders}',
+                                  '${fCount}',
                                   style: TextStyle(
                                       fontFamily: 'gilroy',
                                       fontWeight: FontWeight.w600,

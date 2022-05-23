@@ -84,7 +84,8 @@ class _edit_accountState extends State<edit_account> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json.encode(<String, String>{'email': email, 'userName': username}),
+      body: json.encode(
+          <String, String>{'email': email.toLowerCase(), 'userName': username}),
     );
   }
 

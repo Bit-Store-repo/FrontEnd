@@ -22,7 +22,8 @@ class _login_screenState extends State<login_screen> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json.encode(<String, String>{'email': email, 'password': password}),
+      body: json.encode(
+          <String, String>{'email': email.toLowerCase(), 'password': password}),
     );
   }
 
@@ -223,23 +224,23 @@ class _login_screenState extends State<login_screen> {
                     ),
                   ],
                   SizedBox(
-                    height: 5,
+                    height: 15,
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Forgot Password',
-                      style: TextStyle(
-                        color: Color.fromRGBO(77, 77, 77, 1),
-                        fontSize: 16,
-                        fontFamily: 'gilroy',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                  // TextButton(
+                  //   onPressed: () {},
+                  //   child: Text(
+                  //     'Forgot Password',
+                  //     style: TextStyle(
+                  //       color: Color.fromRGBO(77, 77, 77, 1),
+                  //       fontSize: 16,
+                  //       fontFamily: 'gilroy',
+                  //       fontWeight: FontWeight.w500,
+                  //     ),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
                   ElevatedButton(
                     onPressed: () async {
                       String email = emailController.text;

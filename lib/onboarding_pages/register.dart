@@ -25,7 +25,8 @@ class _registerState extends State<register> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json.encode(<String, String>{'email': email, 'password': password}),
+      body: json.encode(
+          <String, String>{'email': email.toLowerCase(), 'password': password}),
     );
   }
 
@@ -35,7 +36,7 @@ class _registerState extends State<register> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json.encode(<String, String>{'email': email}),
+      body: json.encode(<String, String>{'email': email.toLowerCase()}),
     );
   }
 

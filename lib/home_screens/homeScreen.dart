@@ -54,7 +54,6 @@ class _homeScreenState extends State<homeScreen> {
         resData = passwordData.get('myData');
         userData = user.get('user');
         passwordOnly = password.get('password');
-        print(userData['profPic']);
         imageUrl = userData['profPic'];
       });
     }
@@ -164,17 +163,6 @@ class _homeScreenState extends State<homeScreen> {
     }
     ;
     List favorites = findFavorites(resData, []);
-
-    // print('------------------');
-    // print('------------------');
-    // print(folder);
-    // print('------------------');
-    // print(password);
-    // print('------------------');
-    // print('------------------');
-    // print(resData);
-    // print('------------------');
-    // print('------------------');
 
     return Scaffold(
       appBar: PreferredSize(

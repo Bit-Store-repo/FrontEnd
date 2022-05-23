@@ -28,8 +28,11 @@ class _changePasswordState extends State<changePassword> {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: json.encode(
-          <String, String>{'email': email, 'key': key, 'password': password}),
+      body: json.encode(<String, String>{
+        'email': email.toLowerCase(),
+        'key': key,
+        'password': password
+      }),
     );
   }
 

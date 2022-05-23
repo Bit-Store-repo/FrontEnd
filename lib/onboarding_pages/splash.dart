@@ -10,15 +10,6 @@ class splash extends StatefulWidget {
 }
 
 class _splashState extends State<splash> {
-  // int now = DateTime.now().millisecondsSinceEpoch;
-  // print(DateTime.now().millisecondsSinceEpoch);
-  //
-  // while (true) {
-  //   if (DateTime.now().millisecondsSinceEpoch > now + 2000) {
-  //     Navigator.pushReplacementNamed(context, 'swipe_screen');
-  //   }
-  // }
-
   void firstTime() async {
     Box firstTimeUser = await Hive.openBox('FirstTime');
     var firstTime = firstTimeUser.get('firstTime');
