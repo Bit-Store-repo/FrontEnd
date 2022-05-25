@@ -88,7 +88,9 @@ class _folderPageState extends State<folderPage> {
                           ),
                         ],
                       ),
-                    ),
+                    ).then((_) {
+                      setState(() {});
+                    }),
                     child: ImageIcon(AssetImage("assets/icons/add.png"),
                         color: Colors.white),
                     style: ElevatedButton.styleFrom(

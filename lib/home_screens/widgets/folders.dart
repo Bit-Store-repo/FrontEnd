@@ -145,7 +145,9 @@ class _foldersState extends State<folders> {
                                         )
                                       ],
                                     ),
-                                  );
+                                  ).then((_) {
+                                    setState(() {});
+                                  });
                                 },
                                 child: ImageIcon(
                                   AssetImage("assets/icons/dots.png"),

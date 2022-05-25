@@ -426,6 +426,7 @@ class _newEditPasswordState extends State<newEditPassword> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     TextFormField(
+                                      obscureText: !passwordVisible,
                                       controller: passwordController,
                                       decoration: InputDecoration(
                                         hintText: 'Enter Password',
@@ -463,6 +464,40 @@ class _newEditPasswordState extends State<newEditPassword> {
                                     AssetImage("assets/icons/gear.png"),
                                     color: Color.fromRGBO(125, 125, 125, 1),
                                   )),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              if (passwordVisible == true) ...[
+                                Expanded(
+                                    flex: 1,
+                                    child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            passwordVisible = false;
+                                          });
+                                        },
+                                        child: ImageIcon(
+                                          AssetImage(
+                                              "assets/icons/eyeClose.png"),
+                                          color:
+                                              Color.fromRGBO(125, 125, 125, 1),
+                                        ))),
+                              ],
+                              if (passwordVisible == false) ...[
+                                Expanded(
+                                    flex: 1,
+                                    child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            passwordVisible = true;
+                                          });
+                                        },
+                                        child: ImageIcon(
+                                          AssetImage("assets/icons/eye.png"),
+                                          color:
+                                              Color.fromRGBO(125, 125, 125, 1),
+                                        ))),
+                              ],
                             ],
                           ),
                         )),
@@ -526,9 +561,10 @@ class _newEditPasswordState extends State<newEditPassword> {
                           }
                           tempArray.add(newPassword);
                           cacheData(resData1);
-
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "home", (r) => false);
+                          int count = 0;
+                          Navigator.popUntil(context, (route) {
+                            return count++ == 2;
+                          });
                         }
                         if (type == "Edit") {
                           // function that gets the index of that traversal
@@ -573,8 +609,10 @@ class _newEditPasswordState extends State<newEditPassword> {
                           cacheData(resData1);
                           print(resData1);
 
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "home", (r) => false);
+                          int count = 0;
+                          Navigator.popUntil(context, (route) {
+                            return count++ == 2;
+                          });
                         }
                       },
                       child: Container(

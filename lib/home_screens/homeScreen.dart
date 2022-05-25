@@ -219,7 +219,11 @@ class _homeScreenState extends State<homeScreen> {
                               ),
                             ],
                           ),
-                        ),
+                        ).then((_) {
+                          setState(() {
+                            resData = [];
+                          });
+                        }),
                         child: ImageIcon(AssetImage("assets/icons/add.png"),
                             color: Colors.white),
                         style: ElevatedButton.styleFrom(

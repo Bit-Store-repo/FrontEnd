@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class splash extends StatefulWidget {
   const splash({Key? key}) : super(key: key);
@@ -33,8 +34,24 @@ class _splashState extends State<splash> {
     }
   }
 
+  void loadServers() async {
+    http.get(
+      Uri.parse('https://bit-store-blockchain.herokuapp.com/chain'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    http.get(
+      Uri.parse('https://bit-store-backend.herokuapp.com/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    loadServers();
     firstTime();
     checkLoggedIn();
 

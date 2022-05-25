@@ -363,8 +363,10 @@ class _newEditFolderState extends State<newEditFolder> {
                           print(tempArray);
                           cacheData(resData1);
 
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "home", (r) => false);
+                          int count = 0;
+                          Navigator.popUntil(context, (route) {
+                            return count++ == 2;
+                          });
                         } else if (widget.type == "Edit") {
                           // function that gets the index of that traversal
                           // array from the data
@@ -394,8 +396,10 @@ class _newEditFolderState extends State<newEditFolder> {
 
                           cacheData(resData1);
 
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, "home", (r) => false);
+                          int count = 0;
+                          Navigator.popUntil(context, (route) {
+                            return count++ == 2;
+                          });
                         }
                       },
                       child: Container(

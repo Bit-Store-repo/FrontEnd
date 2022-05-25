@@ -18,8 +18,6 @@ class account_landing extends StatefulWidget {
 }
 
 class _account_landingState extends State<account_landing> {
-  int keys = 25;
-  int folders = 10;
   String userName = "";
   String email = "";
   String status = "";
@@ -124,19 +122,29 @@ class _account_landingState extends State<account_landing> {
 
   int fCount = 0;
   int pCount = 0;
+  List resArr = [];
+
+  List findNumbers(data, arr) {
+    // print('recursion');
+    for (int i = 3; i < data.length; i++) {
+      if (data[i].runtimeType == List<dynamic>) {
+        arr[0] += 1;
+        arr = findNumbers(data[i], arr);
+      } else {
+        arr[1] += 1;
+      }
+    }
+    ;
+    return arr;
+  }
 
   @override
   Widget build(BuildContext context) {
     getCache();
-
-    if (fCount == 0 && pCount == 0) {
-      for (int i = 3; i < resData.length; i++) {
-        if (resData[i].runtimeType == List<dynamic>) {
-          fCount += 1;
-        } else {
-          pCount += 1;
-        }
-      }
+    if (resData.isNotEmpty) {
+      resArr = findNumbers(resData, [0, 0]);
+      fCount = resArr[0];
+      pCount = resArr[1];
     }
 
     return Container(

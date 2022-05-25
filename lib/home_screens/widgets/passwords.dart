@@ -183,7 +183,9 @@ class _passwordsState extends State<passwords> {
                                         )
                                       ],
                                     ),
-                                  );
+                                  ).then((_) {
+                                    setState(() {});
+                                  });
                                 },
                                 child: ImageIcon(
                                   AssetImage("assets/icons/dots.png"),
